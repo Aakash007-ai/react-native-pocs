@@ -1,0 +1,4 @@
+git init  //to initialize a directory
+{create github repo and copy link}
+git remote add origin link_of_github_repo
+git push --set-upstream origin branch_name 
