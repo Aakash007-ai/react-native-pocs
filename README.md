@@ -10,7 +10,7 @@ so, initializing a project and integrating firebase signin with google
 
 <li> firebase setup
 <ul> go to firebase, create project download file 
-<ul> add google-services under android folder
+<ul> add google-services under android/app folder
 <ul> then add dependency in build.gradle under android folder as dependency
 <ul> follow <a>https://rnfirebase.io/</a> to add dependency
 <ul> re-run project to make sure app is running
@@ -25,3 +25,5 @@ so, initializing a project and integrating firebase signin with google
 ---
 
 <ul> now first integrating google signin (get help from garud/todomobile/)
+
+# starting drop-down-picker
