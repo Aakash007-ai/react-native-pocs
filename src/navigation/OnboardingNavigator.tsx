@@ -1,0 +1,31 @@
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {OnboardingStackParamList} from '../types';
+import HomeScreen from '../screens/HomeScreen';
+import ChartKitScreen from '../screens/ChartKit';
+import DropDownPickerScreen from '../screens/DropDownPicker';
+import ReanimatedDemoOne from '../screens/ReanimatedDemoOne';
+import ReanimatedDemoTwo from '../screens/ReanimatedDemoTwo';
+
+const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>();
+const OnboardingNavigator = () => {
+  return (
+    <OnboardingStack.Navigator>
+      <OnboardingStack.Screen name="HomeScreen" component={HomeScreen} />
+      <OnboardingStack.Screen name="ChartKit" component={ChartKitScreen} />
+      <OnboardingStack.Screen
+        name="DropDown"
+        component={DropDownPickerScreen}
+      />
+      <OnboardingStack.Screen
+        name="ReanimatedOne"
+        component={ReanimatedDemoOne}
+      />
+      <OnboardingStack.Screen
+        name="ReanimatedTwo"
+        component={ReanimatedDemoTwo}
+      />
+    </OnboardingStack.Navigator>
+  );
+};
+
+export default OnboardingNavigator;
