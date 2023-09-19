@@ -27,3 +27,9 @@ so, initializing a project and integrating firebase signin with google
 <ul> now first integrating google signin (get help from garud/todomobile/)
 
 # starting drop-down-picker
+
+# react native chart-kit
+
+\*\*\*\* todo :- do react native chart kit exmaple
+
+# react-native-reanimated example
