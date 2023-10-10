@@ -10,6 +10,7 @@ export type OnboardingStackParamList = {
   DropDown: undefined;
   ReanimatedOne: undefined;
   ReanimatedTwo: undefined;
+  AnimatedFlatList: undefined;
 };
 
 // import {NativeStackScreenProps} from '@react-navigation/native-stack';

@@ -5,6 +5,7 @@ import ChartKitScreen from '../screens/ChartKit';
 import DropDownPickerScreen from '../screens/DropDownPicker';
 import ReanimatedDemoOne from '../screens/ReanimatedDemoOne';
 import ReanimatedDemoTwo from '../screens/ReanimatedDemoTwo';
+import AnimatedFlatList from '../screens/AnimatedFlatList';
 
 const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>();
 const OnboardingNavigator = () => {
@@ -23,6 +24,10 @@ const OnboardingNavigator = () => {
       <OnboardingStack.Screen
         name="ReanimatedTwo"
         component={ReanimatedDemoTwo}
+      />
+      <OnboardingStack.Screen
+        name="AnimatedFlatList"
+        component={AnimatedFlatList}
       />
     </OnboardingStack.Navigator>
   );

@@ -24,6 +24,14 @@ const HomeScreen = ({
             navigation.navigate('Onboarding', {screen: 'DropDown'});
           }}
         />
+        <Button
+          title="Animated value selector using flatlist"
+          onPress={() => {
+            navigation.navigate('Onboarding', {
+              screen: 'AnimatedFlatList',
+            });
+          }}
+        />
       </View>
     </>
   );
