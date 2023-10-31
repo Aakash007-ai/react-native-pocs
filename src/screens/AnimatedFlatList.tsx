@@ -8,13 +8,17 @@ const AnimatedFlatList = () => {
     console.log('Dimension.get window ::::', Dimensions.get('window'));
     console.log('Dimension.get screen ::::', Dimensions.get('screen'));
   });
+
+  const updatedWight = React.useRef(null);
+  let weightLength = 50;
+  let data = Array.from({length: weightLength}, (_, i) => i + 1);
   return (
     <View style={{flex: 1}}>
       <View style={{height: '50%'}}>
         <LowerList />
       </View>
       <View>
-        <ValueSelector />
+        <ValueSelector data={data} />
       </View>
     </View>
   );

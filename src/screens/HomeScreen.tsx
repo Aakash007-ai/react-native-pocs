@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Button, Dimensions} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamsList} from '../types';
+import {RootStackParamsList} from '../navigation/types';
 
 const HomeScreen = ({
   navigation,
@@ -30,6 +30,12 @@ const HomeScreen = ({
             navigation.navigate('Onboarding', {
               screen: 'AnimatedFlatList',
             });
+          }}
+        />
+        <Button
+          title="React-Native-Camera"
+          onPress={() => {
+            navigation.navigate('Onboarding', {screen: 'ReactNativeCamera'});
           }}
         />
       </View>

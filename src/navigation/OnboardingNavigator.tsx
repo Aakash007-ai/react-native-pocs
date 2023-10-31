@@ -1,11 +1,12 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {OnboardingStackParamList} from '../types';
+import {OnboardingStackParamList} from './types';
 import HomeScreen from '../screens/HomeScreen';
 import ChartKitScreen from '../screens/ChartKit';
 import DropDownPickerScreen from '../screens/DropDownPicker';
 import ReanimatedDemoOne from '../screens/ReanimatedDemoOne';
 import ReanimatedDemoTwo from '../screens/ReanimatedDemoTwo';
 import AnimatedFlatList from '../screens/AnimatedFlatList';
+import ReactNativeCamera from '../screens/ReactNativeCamera';
 
 const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>();
 const OnboardingNavigator = () => {
@@ -28,6 +29,10 @@ const OnboardingNavigator = () => {
       <OnboardingStack.Screen
         name="AnimatedFlatList"
         component={AnimatedFlatList}
+      />
+      <OnboardingStack.Screen
+        name="ReactNativeCamera"
+        component={ReactNativeCamera}
       />
     </OnboardingStack.Navigator>
   );

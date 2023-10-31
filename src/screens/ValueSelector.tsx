@@ -6,12 +6,12 @@ const {width} = Dimensions.get('window');
 
 const ITEM_SIZE = width * 0.25;
 
-const ValueSelector = () => {
+const ValueSelector = (props: {data: number[]}) => {
+  const {data} = props;
   let initialIndex = 5;
   const [selection, setSelection] = useState(initialIndex); //initialindex
-  let weightLength = 50;
-  let weightRangeSet = Array.from({length: weightLength}, (_, i) => i + 1);
-  //let weightRangeSet = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  //let data = [1, 2, 3, 4, 5, 6, 7, 8];
   const ITEM_SPACING = React.useMemo(() => {
     return (width - ITEM_SIZE) / 2 - 20;
   }, []);
@@ -24,7 +24,7 @@ const ValueSelector = () => {
         alignContent: 'center',
       }}>
       <Animated.FlatList
-        data={weightRangeSet}
+        data={data}
         keyExtractor={(item, index) => index.toString()}
         horizontal={true}
         showsHorizontalScrollIndicator={false}

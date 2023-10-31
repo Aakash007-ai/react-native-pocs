@@ -1,7 +1,7 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import OnboardingNavigator from './OnboardingNavigator';
-import {RootStackParamsList} from '../types';
+import {RootStackParamsList} from './types';
 
 const RootStack = createNativeStackNavigator<RootStackParamsList>();
 
