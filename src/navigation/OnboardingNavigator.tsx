@@ -7,6 +7,7 @@ import ReanimatedDemoOne from '../screens/ReanimatedDemoOne';
 import ReanimatedDemoTwo from '../screens/ReanimatedDemoTwo';
 import AnimatedFlatList from '../screens/AnimatedFlatList';
 import ReactNativeCamera from '../screens/ReactNativeCamera';
+import NotifeeNotification from '../screens/NotifeeNotification';
 
 const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>();
 const OnboardingNavigator = () => {
@@ -33,6 +34,10 @@ const OnboardingNavigator = () => {
       <OnboardingStack.Screen
         name="ReactNativeCamera"
         component={ReactNativeCamera}
+      />
+      <OnboardingStack.Screen
+        name="NotifeeNotification"
+        component={NotifeeNotification}
       />
     </OnboardingStack.Navigator>
   );

@@ -12,6 +12,7 @@ export type OnboardingStackParamList = {
   ReanimatedTwo: undefined;
   AnimatedFlatList: undefined;
   ReactNativeCamera: undefined;
+  NotifeeNotification: undefined;
 };
 
 // import {NativeStackScreenProps} from '@react-navigation/native-stack';

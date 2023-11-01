@@ -38,6 +38,13 @@ const HomeScreen = ({
             navigation.navigate('Onboarding', {screen: 'ReactNativeCamera'});
           }}
         />
+        <Button
+          title="Notifee Notification"
+          onPress={() => {
+            // console.log('button pressed');
+            navigation.navigate('Onboarding', {screen: 'NotifeeNotification'});
+          }}
+        />
       </View>
     </>
   );
