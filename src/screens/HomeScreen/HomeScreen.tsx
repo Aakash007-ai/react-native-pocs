@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Button, Dimensions} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamsList} from '../navigation/types';
+import {RootStackParamsList} from '../../navigation/types';
 
 const HomeScreen = ({
   navigation,
@@ -43,6 +43,18 @@ const HomeScreen = ({
           onPress={() => {
             // console.log('button pressed');
             navigation.navigate('Onboarding', {screen: 'NotifeeNotification'});
+          }}
+        />
+        <Button
+          title="CustomNotifiaction"
+          onPress={() => {
+            navigation.navigate('Onboarding', {screen: 'CustomNotification'});
+          }}
+        />
+        <Button
+          title="Skeleton Loading"
+          onPress={() => {
+            navigation.navigate('Onboarding', {screen: 'SkeletonLoading'});
           }}
         />
       </View>

@@ -13,6 +13,9 @@ export type OnboardingStackParamList = {
   AnimatedFlatList: undefined;
   ReactNativeCamera: undefined;
   NotifeeNotification: undefined;
+  CustomNotification: undefined;
+  SkeletonLoading: undefined;
+  HomeScreenSkeleton: undefined;
 };
 
 // import {NativeStackScreenProps} from '@react-navigation/native-stack';
