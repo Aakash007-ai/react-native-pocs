@@ -16,6 +16,11 @@ export type OnboardingStackParamList = {
   CustomNotification: undefined;
   SkeletonLoading: undefined;
   HomeScreenSkeleton: undefined;
+  ProfileScreenSkeletal: undefined;
+  TrainerScreenSkeletal: undefined;
+  WorkoutScreenSkeletal: undefined;
+  GiftedChart: undefined;
+  AdvancedLocalNotification: undefined;
 };
 
 // import {NativeStackScreenProps} from '@react-navigation/native-stack';

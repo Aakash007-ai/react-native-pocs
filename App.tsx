@@ -17,9 +17,14 @@ notifee.onBackgroundEvent(async ({type, detail}) => {
 
   // Remove the notification
   //await notifee.cancelNotification(notification?.id);
-  await notifee.cancelNotification(
-    notification?.id ? notification?.id : 'defaultId',
-  );
+  await notifee
+    .cancelNotification(notification?.id ? notification?.id : 'defaultId')
+    .then(() => {
+      console.log('notification cancelled from App.tsx file');
+    })
+    .catch(err => {
+      console.log('cancelled notification error from App.tsx', err);
+    });
 });
 
 const App = () => {

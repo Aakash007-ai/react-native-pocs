@@ -1,26 +1,19 @@
 import React, {useEffect} from 'react';
 import ContentLoader, {Rect, Circle} from 'react-content-loader/native';
-
 import {View, Text, Dimensions} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder';
+
 const HomeScreenSkeleton = () => {
-  const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient);
-  useEffect(() => {
-    // setTimeout(() => {
-    //   setLoading(false);
-    const dimension = Dimensions.get('window');
-    console.log('dimension', dimension);
-    // }, 10000);
-  });
+  const SHIMMER_SPEED = 2;
+  const BACKGROUND_COLOR = '#c2c1c1';
+  const FOREGROUND_COLOR = '#f5f5f5';
   const HeaderSkeleton = props => (
     <ContentLoader
-      speed={2}
+      speed={SHIMMER_SPEED}
       width={392}
       height={788}
       viewBox="0 0 392 788"
-      backgroundColor="#c2c1c1"
-      foregroundColor="#f5f5f5"
+      backgroundColor={BACKGROUND_COLOR}
+      foregroundColor={FOREGROUND_COLOR}
       {...props}>
       <Rect x="96" y="29" rx="3" ry="3" width="140" height="11" />
       <Rect x="100" y="55" rx="3" ry="3" width="72" height="10" />
@@ -35,12 +28,12 @@ const HomeScreenSkeleton = () => {
 
   const WorkoutCard = props => (
     <ContentLoader
-      speed={2}
+      speed={SHIMMER_SPEED}
       width={392}
       height={788}
       viewBox="0 0 392 788"
-      backgroundColor="#c2c1c1"
-      foregroundColor="#f5f5f5"
+      backgroundColor={BACKGROUND_COLOR}
+      foregroundColor={FOREGROUND_COLOR}
       {...props}>
       <Rect x="17" y="5" rx="3" ry="3" width="100" height="13" />
       <Rect x="25" y="30" rx="3" ry="3" width="66" height="7" />
@@ -54,12 +47,12 @@ const HomeScreenSkeleton = () => {
 
   const NutritionCard = props => (
     <ContentLoader
-      speed={2}
+      speed={SHIMMER_SPEED}
       width={392}
       height={788}
       viewBox="0 0 392 788"
-      backgroundColor="#c2c1c1"
-      foregroundColor="#f5f5f5"
+      backgroundColor={BACKGROUND_COLOR}
+      foregroundColor={FOREGROUND_COLOR}
       {...props}>
       {/* <Circle cx="25" cy="30" r="4" /> */}
 
@@ -70,12 +63,12 @@ const HomeScreenSkeleton = () => {
 
   const WeightCard = props => (
     <ContentLoader
-      speed={2}
+      speed={SHIMMER_SPEED}
       width={392}
       height={788}
       viewBox="0 0 392 788"
-      backgroundColor="#c2c1c1"
-      foregroundColor="#f5f5f5"
+      backgroundColor={BACKGROUND_COLOR}
+      foregroundColor={FOREGROUND_COLOR}
       {...props}>
       {/* <Circle cx="25" cy="30" r="4" /> */}
       <Rect x="15" y="20" rx="3" ry="3" width="100" height="13" />
@@ -86,12 +79,12 @@ const HomeScreenSkeleton = () => {
 
   const ChallengeCard = props => (
     <ContentLoader
-      speed={2}
+      speed={SHIMMER_SPEED}
       width={392}
       height={788}
       viewBox="0 0 392 788"
-      backgroundColor="#c2c1c1"
-      foregroundColor="#f5f5f5"
+      backgroundColor={BACKGROUND_COLOR}
+      foregroundColor={FOREGROUND_COLOR}
       {...props}>
       {/* <Circle cx="25" cy="30" r="4" /> */}
       <Rect x="15" y="5" rx="3" ry="3" width="100" height="13" />
@@ -102,12 +95,12 @@ const HomeScreenSkeleton = () => {
 
   const StepsCard = props => (
     <ContentLoader
-      speed={2}
+      speed={SHIMMER_SPEED}
       width={392}
       height={788}
       viewBox="0 0 392 788"
-      backgroundColor="#c2c1c1"
-      foregroundColor="#f5f5f5"
+      backgroundColor={BACKGROUND_COLOR}
+      foregroundColor={FOREGROUND_COLOR}
       {...props}>
       {/* <Circle cx="25" cy="30" r="4" /> */}
       <Rect x="15" y="10" rx="3" ry="3" width="100" height="13" />
@@ -118,8 +111,16 @@ const HomeScreenSkeleton = () => {
   );
 
   return (
-    <View style={{flex: 1, justifyContent: 'space-evenly'}}>
-      <View style={{flex: 0.5}}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'space-evenly',
+        height: Dimensions.get('window').height * 0.9,
+      }}>
+      <View
+        style={{
+          flex: 0.5, //backgroundColor: 'grey'
+        }}>
         <HeaderSkeleton />
       </View>
       <View

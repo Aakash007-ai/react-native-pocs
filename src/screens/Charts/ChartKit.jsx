@@ -20,6 +20,7 @@ import LineChartWithTooltips from './ChartWithTooltip';
 import LineChartWithTooltips1 from './LineChartWithTooltip1';
 
 const ChartKitScreen = () => {
+  //still react-native gifted chart is preferrable as we have more options to data interpolation
   React.useEffect(() => {
     console.log('ChartKitScreen ---------on first render');
   }, []);
@@ -134,17 +135,17 @@ const ChartKitScreen = () => {
                 data={{
                   labels: [
                     'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
+                    // 'February',
+                    // 'March',
+                    // 'April',
+                    // 'May',
                     'June',
                   ],
-                  datasets: [{data: [20, 45, 28, 80, 99, 43]}],
+                  datasets: [{data: [20, 45, 25, 80, 99, 43]}],
                 }}
                 width={Dimensions.get('window').width}
                 height={220}
-                yAxisLabel="$"
+                yAxisLabel="$heloo"
                 yAxisSuffix="k"
                 yAxisInterval={1} // optional, defaults to 1
                 chartConfig={{
@@ -166,7 +167,7 @@ const ChartKitScreen = () => {
                     `rgba(255, 255, 255, ${opacity})`,
                   style: {borderRadius: 16},
                   propsForDots: {
-                    r: '6',
+                    r: '0',
                     strokeWidth: '2',
                     stroke: '#ffa726',
                   },

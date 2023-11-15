@@ -11,6 +11,10 @@ import NotifeeNotification from '../screens/LocalNotifciation/NotifeeNotificatio
 import CustomNotification from '../screens/LocalNotifciation/CustomNotification';
 import SkeletonLoading from '../screens/SkeletonLoading/SkeletonLoading';
 import HomeScreenSkeleton from '../screens/SkeletonLoading/HomeScreenSkeleton';
+import TrainerScreenSkeletal from '../screens/SkeletonLoading/TrainerScreen';
+import WorkoutScreenSkeletal from '../screens/SkeletonLoading/WorkoutScreen';
+import ProfileScreenSkeletal from '../screens/SkeletonLoading/ProfileScreen';
+import GiftedChart from '../screens/Charts/GiftedChart';
 
 const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>();
 const OnboardingNavigator = () => {
@@ -50,9 +54,26 @@ const OnboardingNavigator = () => {
         name="SkeletonLoading"
         component={SkeletonLoading}
       />
+      <OnboardingStack.Screen name="GiftedChart" component={GiftedChart} />
       <OnboardingStack.Screen
         name="HomeScreenSkeleton"
         component={HomeScreenSkeleton}
+        options={{headerShown: false}}
+      />
+      <OnboardingStack.Screen
+        name="TrainerScreenSkeletal"
+        component={TrainerScreenSkeletal}
+        options={{headerShown: false}}
+      />
+      <OnboardingStack.Screen
+        name="WorkoutScreenSkeletal"
+        component={WorkoutScreenSkeletal}
+        options={{headerShown: false}}
+      />
+      <OnboardingStack.Screen
+        name="ProfileScreenSkeletal"
+        component={ProfileScreenSkeletal}
+        options={{headerShown: false}}
       />
     </OnboardingStack.Navigator>
   );

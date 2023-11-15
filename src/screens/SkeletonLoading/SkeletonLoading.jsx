@@ -109,6 +109,19 @@ const SkeletonLoading = ({navigation}) => {
             navigation.navigate('HomeScreenSkeleton');
           }}
         />
+        <Button
+          title="WorkoutScreenSkeletal"
+          onPress={() => navigation.navigate('WorkoutScreenSkeletal')}
+        />
+        <Button
+          title="TrainerScreenSkletal"
+          onPress={() => navigation.navigate('TrainerScreenSkeletal')}
+        />
+
+        <Button
+          title="ProfileScreenSkeletal"
+          onPress={() => navigation.navigate('ProfileScreenSkeletal')}
+        />
         {/* <ContentLoader /> */}
 
         {/* <MyLoader /> */}

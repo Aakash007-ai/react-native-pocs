@@ -19,6 +19,12 @@ const HomeScreen = ({
           }}
         />
         <Button
+          title="Gifted Chart"
+          onPress={() => {
+            navigation.navigate('Onboarding', {screen: 'GiftedChart'});
+          }}
+        />
+        <Button
           title="DropDown"
           onPress={() => {
             navigation.navigate('Onboarding', {screen: 'DropDown'});
