@@ -1,58 +1,123 @@
 import React from 'react';
 import ContentLoader, {Rect, Circle} from 'react-content-loader/native';
-import {View, Text, Dimensions} from 'react-native';
+import {View, Text, Dimensions, FlatList, ScrollView} from 'react-native';
 
 const TrainerScreenSkeletal = () => {
-  const SHIMMER_SPEED = 2;
-  const BACKGROUND_COLOR = '#c2c1c1';
-  const FOREGROUND_COLOR = '#f5f5f5';
-  const INTERVAL = 0.1;
-  const NavigationHeaderSkeletal = props => (
+  let box = [1, 1, 1];
+  let box2 = [1, 1, 1, 1];
+  const MyLoader = props => (
     <ContentLoader
-      speed={SHIMMER_SPEED}
+      speed={2}
       width={392}
       height={788}
       viewBox="0 0 392 788"
-      interval={INTERVAL}
-      backgroundColor={BACKGROUND_COLOR}
-      foregroundColor={FOREGROUND_COLOR}
+      backgroundColor="#a3a3a3"
+      foregroundColor="#f5f5f5"
       {...props}>
-      <Rect x="50" y="50" rx="3" ry="3" width="59" height="20" />
-      <Rect x="170" y="50" rx="3" ry="3" width="59" height="20" />
-      <Rect x="300" y="50" rx="3" ry="3" width="59" height="20" />
-      {/* <Circle cx="50" cy="47" r="29" /> */}
+      <Rect x="20" y="10" rx="10" ry="10" width="336" height="20" />
     </ContentLoader>
   );
-  const InfoSkeletal = props => (
-    <ContentLoader
-      speed={SHIMMER_SPEED}
-      width={392}
-      height={788}
-      interval={INTERVAL}
-      viewBox="0 0 392 788"
-      backgroundColor={BACKGROUND_COLOR}
-      foregroundColor={FOREGROUND_COLOR}
-      {...props}>
-      <Rect x="100" y="50" rx="3" ry="3" width="30" height="30" />
-      <Rect x="250" y="50" rx="3" ry="3" width="30" height="30" />
+  const Replica = () => (
+    <>
+      <View style={{height: 35}}>
+        <MyLoader />
+      </View>
+      <View style={{padding: 10}}>
+        <FlatList
+          data={box}
+          horizontal={true}
+          nestedScrollEnabled={true}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={item => (
+            <View
+              style={{
+                height: 55,
+                // width: Dimensions.get('window').width * 0.9,
+                width: 50,
+                backgroundColor: '#a3a3a3',
+                marginHorizontal: 10,
+                borderRadius: 10,
+              }}>
+              {/* <Text style={{color: 'black'}}>{item.item}hello</Text> */}
+            </View>
+          )}
+        />
+      </View>
+      <View style={{alignItems: 'center'}}>
+        <View
+          style={{
+            width: '90%',
+            height: 250,
+            backgroundColor: '#a3a3a3',
+            borderRadius: 10,
+            justifyContent: 'center',
 
-      {/* <Circle cx="50" cy="47" r="29" /> */}
-    </ContentLoader>
+            marginHorizontal: 20,
+          }}
+        />
+      </View>
+    </>
+  );
+  const Replica2 = () => (
+    <>
+      <View style={{height: 35, paddingTop: 5}}>
+        <MyLoader />
+      </View>
+      <View style={{padding: 10}}>
+        <FlatList
+          data={box2}
+          horizontal={true}
+          nestedScrollEnabled={true}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={item => (
+            <View
+              style={{
+                height: 55,
+                // width: Dimensions.get('window').width * 0.9,
+                width: 50,
+                backgroundColor: '#a3a3a3',
+                marginHorizontal: 10,
+                borderRadius: 10,
+              }}>
+              {/* <Text style={{color: 'black'}}>{item.item}hello</Text> */}
+            </View>
+          )}
+        />
+      </View>
+      <View style={{alignItems: 'center'}}>
+        <View
+          style={{
+            width: '80%',
+            height: '40%',
+            backgroundColor: '#a3a3a3',
+            borderRadius: 10,
+            justifyContent: 'center',
+
+            marginHorizontal: 20,
+          }}
+        />
+        <View
+          style={{
+            width: '40%',
+            height: '12%',
+            bottom: 10,
+            backgroundColor: '#a3a3a3',
+            borderRadius: 10,
+            justifyContent: 'center',
+
+            marginHorizontal: 20,
+          }}
+        />
+      </View>
+    </>
   );
   return (
-    <View style={{height: Dimensions.get('window').height * 0.9}}>
-      <View style={{height: '40%', backgroundColor: 'grey'}}></View>
-      <View //3 linesme
-        style={{flex: 1}}>
-        <NavigationHeaderSkeletal />
+    <ScrollView>
+      <View style={{height: Dimensions.get('window').height}}>
+        <Replica />
+        <Replica2 />
       </View>
-      <View //2 lines
-        style={{flex: 1}}>
-        <InfoSkeletal />
-      </View>
-      <View style={{height: '30%', backgroundColor: 'grey'}}></View>
-      <View></View>
-    </View>
+    </ScrollView>
   );
 };
 

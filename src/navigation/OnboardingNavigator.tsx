@@ -15,6 +15,8 @@ import TrainerScreenSkeletal from '../screens/SkeletonLoading/TrainerScreen';
 import WorkoutScreenSkeletal from '../screens/SkeletonLoading/WorkoutScreen';
 import ProfileScreenSkeletal from '../screens/SkeletonLoading/ProfileScreen';
 import GiftedChart from '../screens/Charts/GiftedChart';
+import NotifeeExample from '../screens/NotifeeExample/NotifeeExample';
+import IconApp from '../IconExplorer/IconMain';
 
 const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>();
 const OnboardingNavigator = () => {
@@ -75,6 +77,11 @@ const OnboardingNavigator = () => {
         component={ProfileScreenSkeletal}
         options={{headerShown: false}}
       />
+      <OnboardingStack.Screen
+        name="NotifeeExample"
+        component={NotifeeExample}
+      />
+      <OnboardingStack.Screen name="IconApp" component={IconApp} />
     </OnboardingStack.Navigator>
   );
 };

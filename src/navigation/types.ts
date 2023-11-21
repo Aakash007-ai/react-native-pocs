@@ -21,6 +21,8 @@ export type OnboardingStackParamList = {
   WorkoutScreenSkeletal: undefined;
   GiftedChart: undefined;
   AdvancedLocalNotification: undefined;
+  NotifeeExample: undefined;
+  IconApp: undefined;
 };
 
 // import {NativeStackScreenProps} from '@react-navigation/native-stack';

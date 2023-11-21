@@ -3,6 +3,7 @@ apply plugin: "com.facebook.react"
 
 // execute the plugin by adding the following to your /android/app/build.gradle file
 apply plugin: 'com.google.gms.google-services' //to include firebase
+apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")//added while using react-native-vector-icons
 
 
 /**
