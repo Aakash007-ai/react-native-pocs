@@ -13,7 +13,7 @@ const HomeScreen = ({
             Welcome to React Native Pocs. To view any functionality tap on
             button
           </Text>
-          <Button
+          {/* <Button
             title="ChartKit"
             onPress={() => {
               navigation.navigate('Onboarding', {screen: 'ChartKit'});
@@ -77,6 +77,28 @@ const HomeScreen = ({
             title="IconExample"
             onPress={() => {
               navigation.navigate('Onboarding', {screen: 'IconApp'});
+            }}
+          /> */}
+          <Button
+            title="Custom Notifee"
+            onPress={() => {
+              navigation.navigate('Onboarding', {screen: 'CustomNotifee'});
+            }}
+          />
+          <Button
+            title="Background Notification"
+            onPress={() => {
+              navigation.navigate('Onboarding', {
+                screen: 'BackgroundNotification',
+              });
+            }}
+          />
+          <Button
+            title="AppStateNotiification"
+            onPress={() => {
+              navigation.navigate('Onboarding', {
+                screen: 'AppStateNotification',
+              });
             }}
           />
         </View>

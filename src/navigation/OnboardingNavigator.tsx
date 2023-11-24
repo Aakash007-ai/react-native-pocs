@@ -17,6 +17,9 @@ import ProfileScreenSkeletal from '../screens/SkeletonLoading/ProfileScreen';
 import GiftedChart from '../screens/Charts/GiftedChart';
 import NotifeeExample from '../screens/NotifeeExample/NotifeeExample';
 import IconApp from '../IconExplorer/IconMain';
+import CustomNotifee from '../screens/CustomNotifee/CustomNotifee';
+import BackgroundNotification from '../screens/LocalNotifciation/BackgroundHeadlessJSNotification';
+import AppStateNotification from '../screens/CustomNotifee/AppStateNotification';
 
 const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>();
 const OnboardingNavigator = () => {
@@ -82,6 +85,21 @@ const OnboardingNavigator = () => {
         component={NotifeeExample}
       />
       <OnboardingStack.Screen name="IconApp" component={IconApp} />
+      <OnboardingStack.Screen
+        name="CustomNotifee"
+        component={CustomNotifee}
+        options={{headerShown: false}}
+      />
+      <OnboardingStack.Screen
+        name="BackgroundNotification"
+        component={BackgroundNotification}
+        options={{headerShown: false}}
+      />
+      <OnboardingStack.Screen
+        name="AppStateNotification"
+        component={AppStateNotification}
+        options={{headerShown: false}}
+      />
     </OnboardingStack.Navigator>
   );
 };

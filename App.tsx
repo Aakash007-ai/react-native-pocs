@@ -1,33 +1,79 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {RootNavigator} from './src/navigation/RootNavigator';
-import notifee, {EventType} from '@notifee/react-native';
+import notifee, {EventType, Notification} from '@notifee/react-native';
+import {AppState} from 'react-native';
 // const Stack = createNativeStackNavigator<RootStackParamsList>();
 notifee.onBackgroundEvent(async ({type, detail}) => {
   const {notification, pressAction} = detail;
+  if (type === EventType.ACTION_PRESS && detail.pressAction?.id === 'start') {
+    console.log('use press start in background mode then we have to open app');
+  } else if (
+    type === EventType.ACTION_PRESS &&
+    detail.pressAction?.id === 'later'
+  ) {
+    console.log(
+      'user opt to cancel notification::: ',
+      detail.notification?.id,
+      ' and type is ::',
+      type,
+    );
 
-  // Check if the user pressed the "Mark as read" action
-  if (type === EventType.ACTION_PRESS && pressAction?.id === 'mark-as-read') {
-    // Update external API
-    console.log('mark-as-read pressed in onBackgroundEvent');
-    // await fetch(`https://my-api.com/chat/${notification?.data?.chatId}/read`, {
-    //   method: 'POST', //perform any action
-    // });
+    let id = detail.notification?.id;
+
+    // cancelNotification(notification);
+    await notifee
+      .cancelNotification('workout-notification')
+      .then(() => {
+        console.log('notification cancelled from App.tsx file');
+      })
+      .catch(err => {
+        console.log('cancelled notification error from App.tsx', err);
+      });
   }
-
-  // Remove the notification
-  //await notifee.cancelNotification(notification?.id);
-  await notifee
-    .cancelNotification(notification?.id ? notification?.id : 'defaultId')
-    .then(() => {
-      console.log('notification cancelled from App.tsx file');
-    })
-    .catch(err => {
-      console.log('cancelled notification error from App.tsx', err);
-    });
 });
 
 const App = () => {
+  const [appState, setAppState] = React.useState(); //used to get AppState
+  const [notificationId, setNotificationId] = React.useState<String>(); //use to get notifcationId from notification tap event to delte that notificaiton
+
+  React.useEffect(() => {
+    // const subscription = AppState.addEventListener(
+    //   'change',
+    //   handleAppStateChange,
+    // );
+
+    notifee.onForegroundEvent(async ({type, detail}) => {
+      const {notification, pressAction} = detail;
+      if (type === EventType.ACTION_PRESS && pressAction?.id === 'start') {
+      } else if (
+        type === EventType.ACTION_PRESS &&
+        pressAction?.id === 'later'
+      ) {
+        setNotificationId(notification?.id);
+        // cancelNotification(notification);
+        await notifee
+          // .cancelNotification(notification?.id ? notification?.id : 'defaultId')
+          .cancelNotification('workout-notification')
+          .then(() => {
+            console.log('notification cancelled from App.tsx file');
+          })
+          .catch(err => {
+            console.log('cancelled notification error from App.tsx', err);
+          });
+      }
+    });
+
+    //   return () => {
+    //     subscription.remove();
+    //   };
+    // }, []);
+  }, []);
+
+  // const handleAppStateChange = (nextAppState: any) => {
+  //   setAppState(nextAppState);
+  //   console.log('App State in App.tsx::: ', appState);
+  // };
   return (
     <NavigationContainer>
       <RootNavigator />

@@ -24,6 +24,7 @@
         android:windowSoftInputMode="adjustResize"
         android:exported="true"
         android:showWhenLocked="true"
+        android:turnScreenOn="true"
         >
         <!-- for notification on lock screen android:showOnLocked SCREEN -->
         <intent-filter>

@@ -23,6 +23,9 @@ export type OnboardingStackParamList = {
   AdvancedLocalNotification: undefined;
   NotifeeExample: undefined;
   IconApp: undefined;
+  CustomNotifee: undefined;
+  BackgroundNotification: undefined;
+  AppStateNotification: undefined;
 };
 
 // import {NativeStackScreenProps} from '@react-navigation/native-stack';
