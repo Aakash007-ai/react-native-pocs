@@ -1,0 +1,15 @@
+normal android code is ale to run on ios
+app state is working successfully but there is problem in canellingnotification
+
+android conflicts on ios
+
+
+
+ios flow 
+notification get displayed as soon as app gets switched
+
+but don't get cancelled 
+also don't have buttons
+
+
+todo cancel notification and add buttons

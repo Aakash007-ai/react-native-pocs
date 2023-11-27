@@ -54,7 +54,30 @@ const AppStateNotification = () => {
       });
   };
 
+  async function setCategories() {
+    await notifee.setNotificationCategories([
+      {
+        id: 'ios-workout-notification',
+        actions: [
+          {
+            id: 'start',
+            title: 'Start Now',
+          },
+          {
+            id: 'later',
+            title: 'Later',
+          },
+        ],
+      },
+    ]).then((res)=>{
+      conasole.log("categories set sucessfully on ios:::",res)
+    }).catch((err)=>{
+      console.log("error while creating categoreis for ios,:::" ,err)
+    });
+  }
+
   const onDisplayNotification = async () => {
+    await setCategories();
     await requestNotificationPermission();
     await createChannel();
     await notifee
@@ -86,6 +109,10 @@ const AppStateNotification = () => {
             },
           ],
         },
+        ios:{
+          interruptionLevel:'critical',
+          categoryId:'ios-workout-notification'
+        }
       })
       .then(res => {
         console.log('Notification displayed', res); //give notificaiton id
