@@ -5,6 +5,7 @@ import notifee, {
   AndroidImportance,
   AndroidVisibility,
 } from '@notifee/react-native';
+import {createChannel, cancelNotifcation} from './android_notifciaton_helper';
 
 const AppStateNotification = () => {
   const [appstate, setAppState] = React.useState(AppState.currentState);
@@ -27,53 +28,31 @@ const AppStateNotification = () => {
       });
   };
 
-  const createChannel = async () => {
-    await notifee
-      .createChannel({
-        id: 'workout-channel',
-        name: 'Workout Channel',
-        importance: AndroidImportance.HIGH,
-        visibility: AndroidVisibility.PUBLIC,
-      })
-      .then(res => {
-        console.log('Channel created', res);
-      })
-      .catch(err => {
-        console.log('An error occurred when creating the channel', err);
-      });
-  };
-
-  const cancelNotifcation = async () => {
-    await notifee
-      .cancelNotification('workout-notification')
-      .then(res => {
-        console.log('Notification cancelled by button', res);
-      })
-      .catch(err => {
-        console.log('An error occurred when cancelling the notification', err);
-      });
-  };
-
   async function setCategories() {
-    await notifee.setNotificationCategories([
-      {
-        id: 'ios-workout-notification',
-        actions: [
-          {
-            id: 'start',
-            title: 'Start Now',
-          },
-          {
-            id: 'later',
-            title: 'Later',
-          },
-        ],
-      },
-    ]).then((res)=>{
-      conasole.log("categories set sucessfully on ios:::",res)
-    }).catch((err)=>{
-      console.log("error while creating categoreis for ios,:::" ,err)
-    });
+    await notifee
+      .setNotificationCategories([
+        {
+          id: 'ios-workout-notification',
+          actions: [
+            {
+              id: 'start',
+              title: 'Start Now',
+              foreground: true, //it will trigger app to open in background , after that it will send a action press event
+            },
+            {
+              id: 'later',
+              title: 'Later',
+              destructive: true, //will show red label in ios for destructive nitent
+            },
+          ],
+        },
+      ])
+      .then(res => {
+        conasole.log('categories set sucessfully on ios:::', res);
+      })
+      .catch(err => {
+        console.log('error while creating categoreis for ios,:::', err);
+      });
   }
 
   const onDisplayNotification = async () => {
@@ -109,10 +88,10 @@ const AppStateNotification = () => {
             },
           ],
         },
-        ios:{
-          interruptionLevel:'critical',
-          categoryId:'ios-workout-notification'
-        }
+        ios: {
+          interruptionLevel: 'critical',
+          categoryId: 'ios-workout-notification',
+        },
       })
       .then(res => {
         console.log('Notification displayed', res); //give notificaiton id
@@ -156,6 +135,17 @@ const AppStateNotification = () => {
     // console.log('App State in AppStateNotificaiton ::: ', appstate);
   };
 
+  const cancelIOSNotification = async () => {
+    await notifee
+      .cancelNotification('workout-notification') //not related to ios/android. It is for both
+      .then(res => {
+        console.log('Notification cancelled by button', res);
+      })
+      .catch(err => {
+        console.log('An error occurred when cancelling the notification', err);
+      });
+  };
+
   return (
     <View>
       <Text style={{color: 'black'}}>
@@ -172,6 +162,22 @@ const AppStateNotification = () => {
           await notifee.cancelAllNotifications();
         }}
       />
+      <Text style={{color: 'black'}}>
+        now handling same kind of notification in ios. Creation of notificaiton
+        is ok with action'title todo:----cancel notification on ios,make it
+        sticky,add actions
+      </Text>
+      <Button
+        title="setting Ios notification's categories"
+        onPress={() => {
+          console.log(
+            "setting notification's categories on ios\n notificaiton's id ::: ios-workout-notification",
+          );
+          setCategories();
+        }}
+      />
+      <Button title="Display notification" onPress={onDisplayNotification} />
+      <Button title="Cancel notification" onPress={cancelIOSNotification} />
     </View>
   );
 };

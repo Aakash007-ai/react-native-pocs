@@ -13,3 +13,21 @@ also don't have buttons
 
 
 todo cancel notification and add buttons
+
+now task is to persist notiication 
+
+check ios code to cancel notification 
+
+
+task 
+able to generate notification on tap
+cancel notiication on tap 
+
+able to generate notificaiton on switch
+able to cancel notifciation on comeback
+
+now show actions
+show app on tap of start 
+cancel app on tap of later
+
+make notification persistent
