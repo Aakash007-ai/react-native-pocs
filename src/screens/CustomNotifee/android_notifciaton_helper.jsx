@@ -1,4 +1,4 @@
-import notifee from '@notifee/react-native';
+import notifee,{AndroidImportance,AndroidVisibility} from '@notifee/react-native';
 
 const createChannel = async () => {
   await notifee

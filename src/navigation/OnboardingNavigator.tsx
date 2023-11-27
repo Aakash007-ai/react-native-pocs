@@ -98,7 +98,7 @@ const OnboardingNavigator = () => {
       <OnboardingStack.Screen
         name="AppStateNotification"
         component={AppStateNotification}
-        options={{headerShown: false}}
+        options={{}}
       />
     </OnboardingStack.Navigator>
   );

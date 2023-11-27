@@ -48,7 +48,7 @@ const AppStateNotification = () => {
         },
       ])
       .then(res => {
-        conasole.log('categories set sucessfully on ios:::', res);
+        console.log('categories set sucessfully on ios:::', res);
       })
       .catch(err => {
         console.log('error while creating categoreis for ios,:::', err);
@@ -116,6 +116,7 @@ const AppStateNotification = () => {
 
   const handleAppStateChange = nextAppState => {
     if (appstate.match(/inactive|background/) && nextAppState === 'active') {
+    // if (appstate.match(/inactive|background/) && nextAppState === 'active') {
       console.log('App has come to the foreground!', nextAppState);
       setAppState(nextAppState);
       //start a task here to start notiifcation

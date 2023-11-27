@@ -20,7 +20,7 @@ check ios code to cancel notification
 
 
 task 
-able to generate notification on tap
+able to generate notification on tap :::done
 cancel notiication on tap 
 
 able to generate notificaiton on switch
