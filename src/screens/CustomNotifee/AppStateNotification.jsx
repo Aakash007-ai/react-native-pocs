@@ -33,6 +33,7 @@ const AppStateNotification = () => {
       .setNotificationCategories([
         {
           id: 'ios-workout-notification',
+          
           actions: [
             {
               id: 'start',
