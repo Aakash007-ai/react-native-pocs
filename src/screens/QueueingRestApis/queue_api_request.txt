@@ -1,0 +1,4 @@
+npm install --save @react-native-community/netinfo
+
+we use --save to include this dependency name in package.json  (before npm 5.0 it doesn't happen by default)
+

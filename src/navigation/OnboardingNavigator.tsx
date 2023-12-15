@@ -20,6 +20,8 @@ import IconApp from '../IconExplorer/IconMain';
 import CustomNotifee from '../screens/CustomNotifee/CustomNotifee';
 import BackgroundNotification from '../screens/LocalNotifciation/BackgroundHeadlessJSNotification';
 import AppStateNotification from '../screens/CustomNotifee/AppStateNotification';
+import {SafeAreaView} from 'react-native';
+import {SimpleReactQuery} from '../screens/ReactQuery/SimpleReactQuery';
 
 const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>();
 const OnboardingNavigator = () => {
@@ -99,6 +101,10 @@ const OnboardingNavigator = () => {
         name="AppStateNotification"
         component={AppStateNotification}
         options={{}}
+      />
+      <OnboardingStack.Screen
+        name="SimpleReactQuery"
+        component={SimpleReactQuery}
       />
     </OnboardingStack.Navigator>
   );

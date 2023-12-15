@@ -1,0 +1,3 @@
+json-server --host 0.0.0.0 db.json 
+
+send post request just send data// backend will received as postitional parameteres

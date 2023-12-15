@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import ContentLoader, {Rect, Circle} from 'react-content-loader/native';
-import {View, Text, Dimensions, ScrollView, FlatList} from 'react-native';
+import {View, Text, Dimensions} from 'react-native';
 
 const HomeScreenSkeleton = () => {
   const SHIMMER_SPEED = 2;
@@ -110,81 +110,87 @@ const HomeScreenSkeleton = () => {
     </ContentLoader>
   );
 
-  let box2 = [1, 1, 1, 1];
-
   return (
     <View
       style={{
         flex: 1,
         justifyContent: 'space-evenly',
-        height: Dimensions.get('window').height,
-        padding: 10,
+        height: Dimensions.get('window').height * 0.9,
       }}>
-      <ScrollView>
+      <View
+        style={{
+          flex: 0.5, //backgroundColor: 'grey'
+        }}>
+        <HeaderSkeleton />
+      </View>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          margin: 10,
+        }}>
+        <View //light bluer box
+          style={{
+            flex: 1,
+            padding: 10,
+            margin: 10,
+            borderRadius: 20,
+            backgroundColor: '#D1E5FF',
+          }}>
+          <WorkoutCard />
+        </View>
         <View
           style={{
-            backgroundColor: '#a3a3a3',
-            height: 400,
-            width: 'auto',
+            //light green box
+            flex: 1,
+            backgroundColor: '#CBD2DC',
+            //width: '50%',
             padding: 10,
-            margin: 20,
+            margin: 10,
             borderRadius: 20,
-            elevation: 10,
-          }}></View>
-        {/* <View
-          style={{
-            backgroundColor: '#a3a3a3',
-            height: 80,
-            width: 'auto',
-            // margin: 10,
-          }}></View> */}
-        <FlatList
-          data={box2}
-          horizontal={true}
-          nestedScrollEnabled={true}
-          keyExtractor={(item, index) => index.toString()}
-          style={{padding: 10, elevation: 10}}
-          renderItem={item => (
-            <View
-              style={{
-                height: 55,
-                // width: Dimensions.get('window').width * 0.9,
-                width: 50,
-                backgroundColor: '#a3a3a3',
-                marginHorizontal: 10,
-                borderRadius: 10,
-              }}>
-              {/* <Text style={{color: 'black'}}>{item.item}hello</Text> */}
-            </View>
-          )}
-        />
-        <View style={{alignItems: 'center'}}>
-          <View
-            style={{
-              width: '90%',
-              height: 200,
-              backgroundColor: '#D1E5FF',
-              borderRadius: 10,
-              justifyContent: 'center',
-
-              marginHorizontal: 20,
-              elevation: 10,
-            }}
-          />
-          <View
-            style={{
-              width: '40%',
-              height: 40,
-              bottom: 10,
-              backgroundColor: '#a3a3a3',
-              borderRadius: 10,
-              justifyContent: 'center',
-              marginHorizontal: 20,
-              elevation: 10,
-            }}
-          />
+          }}>
+          <StepsCard />
         </View>
-      </ScrollView>
+      </View>
+      <View //
+        style={{
+          flex: 1,
+          backgroundColor: '#38927633',
+          margin: 10,
+          padding: 10,
+          borderRadius: 20,
+        }}>
+        <NutritionCard />
+      </View>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          margin: 10,
+        }}>
+        <View
+          style={{
+            flex: 1,
+            padding: 10,
+            margin: 10,
+            borderRadius: 20,
+            backgroundColor: '#FFE2E4',
+          }}>
+          <WeightCard />
+        </View>
+        <View
+          style={{
+            flex: 1,
+            padding: 10,
+            margin: 10,
+            borderRadius: 20,
+            backgroundColor: '#D0BEEE',
+          }}>
+          <ChallengeCard />
+        </View>
+      </View>
     </View>
   );
 };

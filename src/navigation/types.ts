@@ -26,6 +26,8 @@ export type OnboardingStackParamList = {
   CustomNotifee: undefined;
   BackgroundNotification: undefined;
   AppStateNotification: undefined;
+  QueueRestApi: undefined;
+  SimpleReactQuery: undefined;
 };
 
 // import {NativeStackScreenProps} from '@react-navigation/native-stack';

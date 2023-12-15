@@ -1,0 +1,5 @@
+npx create-react-app react-query-demo
+
+setup mock data so, we use jsonserver
+
+rafc (type to create a simple component in react)
