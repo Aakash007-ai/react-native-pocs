@@ -29,6 +29,11 @@ export const SimpleReactQuery = () => {
     queryFn: fetcherUrl,
     // staleTime: 5000, //data will be picked from cache for always , by default it is 0
     gcTime: 3000,
+    onSuccess: data => {
+      console.log('onSuccess------------', data);
+      // queryClient.clear(); //clears all the cache
+      queryClient.setQueryData(['super-heroes'], data);
+    },
   });
 
   React.useEffect(() => {
@@ -36,7 +41,7 @@ export const SimpleReactQuery = () => {
       console.log('useQuery :- isLoading :::', isLoading);
     }
     if (superHeroesData) {
-      // console.log('useQuery :- data :::', superHeroesData?.data);
+      // console.log('useQuery :- data- :::', superHeroesData?.data);
       setSuperHeroes(superHeroesData?.data);
     }
     if (isError) {
@@ -45,13 +50,13 @@ export const SimpleReactQuery = () => {
         apiFaliedError,
       );
     }
-
     if (isFetching) {
       console.log('useQuery :- isFetching :::', isFetching);
     }
   }, [isLoading, superHeroesData, apiFaliedError, isError, isFetching]);
 
   const {isPending, mutate, isSuccess, error} = useMutation({
+    mutationKey: ['add-super-hero'],
     mutationFn: newHeroData => {
       console.log('newHeroData in mutation function', newHeroData);
       return axios.post('http://10.206.14.21:3000/superheroes', newHeroData);
@@ -59,6 +64,8 @@ export const SimpleReactQuery = () => {
     onMutate: async newHero => {
       console.log('onMutate', newHero);
       await queryClient.cancelQueries(['super-heroes']); //cancelling is a await
+      const previousHeroes = queryClient.getQueryData(['super-heroes']);
+
       queryClient.setQueryData(['super-heroes'], old => {
         console.log('old query data:::---', old);
         return {
@@ -67,7 +74,12 @@ export const SimpleReactQuery = () => {
         };
       });
 
-      const previousHeroes = queryClient.getQueryData(['super-heroes']);
+      console.log(
+        'newly updated old data',
+        queryClient.getQueryData(['super-heroes']),
+      );
+
+      // const previousHeroes = queryClient.getQueryData(['super-heroes']);
       // queryClient.setQueryData('super-heroes', old => [...old, newHero]);
       return {previousHeroes};
     },
@@ -89,15 +101,15 @@ export const SimpleReactQuery = () => {
       // queryClient.invalidateQueries({queryKey: ['super-heroes']});
     },
     onSettled: (data, error, variables, context) => {
-      // console.log('onSettled', data, error, variables, context);
+      console.log('onSettled', data, error, variables, context);
       queryClient.invalidateQueries({queryKey: ['super-heroes']}); //after everything gets pushed refetch the data
     },
     // onMutate: async newHero => {},
   });
 
-  React.useEffect(() => {
-    queryClient.resumePausedMutations();
-  });
+  // React.useEffect(() => {
+  //   queryClient.resumePausedMutations();
+  // });
 
   if (isLoading) {
     <View>
@@ -106,14 +118,18 @@ export const SimpleReactQuery = () => {
   }
 
   if (isError) {
-    <View>
-      <Text>Hello React Query, this is error state ...................</Text>
-      <Text>{apiFaliedError}</Text>
-    </View>;
+    return (
+      <View>
+        <Text>Hello React Query, this is error state ...................</Text>
+        <Text>{apiFaliedError}</Text>
+      </View>
+    );
   }
 
   const [name, setName] = React.useState('');
   const [alterEgo, setAlterEgo] = React.useState('');
+
+  // if (isError) return <Text>{apiFaliedError}</Text>;
 
   return (
     <View style={styles.container}>

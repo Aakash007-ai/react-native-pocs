@@ -1,9 +1,9 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {RootNavigator} from './src/navigation/RootNavigator';
+import {RootNavigator} from './navigation/RootNavigator';
 import notifee, {EventType, Notification} from '@notifee/react-native';
 import {AppState, SafeAreaView, StatusBar} from 'react-native';
-import {foregroundNotification} from './src/helper/notification.';
+import {foregroundNotification} from './helper/notification.';
 
 import Netinfo, {addEventListener} from '@react-native-community/netinfo';
 import Snackbar from 'react-native-snackbar';
@@ -12,11 +12,70 @@ import {createAsyncStoragePersister} from '@tanstack/query-async-storage-persist
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {PersistQueryClientProvider} from '@tanstack/react-query-persist-client';
 import {Client} from 'mqtt';
+import axios from 'axios';
 
-const queryClient = new QueryClient();
+import {queryClient} from './screens/ReactQuery/queryClient';
+// const queryClient = new QueryClient(); //correct way to declare it globally, never declare it inside function orJSX
+
 const persister = createAsyncStoragePersister({
   storage: AsyncStorage,
-  throttleTime: 3000,
+  throttleTime: 1000,
+});
+// if (__DEV__) {
+//   //@ts-ignore
+//   import('./screens/ReactQuery/Reactotron');
+// }
+
+// if (__DEV__) {
+//   import('./screens/ReactQuery/ReactotronConfig').then(() =>
+//     console.log('Reactotron Configured'),
+//   );
+// }
+
+queryClient.setMutationDefaults(['add-super-hero'], {
+  mutationFn: newHeroData => {
+    console.log(
+      'newHeroData in mutation function by default of app.jsx',
+      newHeroData,
+    );
+    return axios.post('http://10.206.14.21:3000/superheroes', newHeroData);
+  },
+  onMutate: async newHero => {
+    console.log('onMutate by default in app.jsx', newHero);
+
+    await queryClient.cancelQueries(['super-heroes']); //cancelling is a await
+
+    const previousHeroes = queryClient.getQueryData(['super-heroes']);
+
+    queryClient.setQueryData(['super-heroes'], old => {
+      console.log('old query data in app.jsx:::---', old);
+      return {
+        ...old,
+        data: [...old.data, {...newHero, id: old?.data.length + 1}],
+      };
+    });
+
+    console.log(
+      'newly updated old data in app.jsx',
+      queryClient.getQueryData(['super-heroes']),
+    );
+
+    return {previousHeroes};
+  },
+
+  onError: (error, variables, context) => {
+    // An error happened!
+    console.log(`rolling back optimistic update with id ${context.id}`);
+
+    queryClient.setQueryData(['super-heroes'], context.previousHeroes);
+  },
+  onSuccess: (data, variables, context) => {
+    console.log('by default mutations successfully happen');
+  },
+  onSettled: (data, error, variables, context) => {
+    console.log('onSettled by default in app.jsx', data, error, variables);
+    queryClient.invalidateQueries({queryKey: ['super-heroes']});
+  },
 });
 
 const App = () => {
@@ -29,14 +88,14 @@ const App = () => {
     });
   }, []);
 
-  mutationCache: new MutationCache({
-    onSuccess(data, variables, context, mutation) {
-      console.log('toast ::::mutation successfully happen ');
-    },
-    onError(error, variables, context, mutation) {
-      console.log('toast ::::mutation error called', error);
-    },
-  });
+  // mutationCache: new MutationCache({
+  //   onSuccess(data, variables, context, mutation) {
+  //     console.log('toast ::::mutation successfully happen ');
+  //   },
+  //   onError(error, variables, context, mutation) {
+  //     console.log('toast ::::mutation error called', error);
+  //   },
+  // });
   //---------React Query--------------------
 
   //adding network event state listner
@@ -58,7 +117,7 @@ const App = () => {
         Snackbar.show({
           text: 'Online',
           textColor: 'green',
-          duration: Snackbar.LENGTH_SHORT,
+          // duration: Snackbar.LENGTH_SHORT,
         });
       }
     });
@@ -70,9 +129,10 @@ const App = () => {
 
   ///----------handling notification when app state change under App State Notification
   const [appState, setAppState] = React.useState(); //used to get AppState
-  const [notificationId, setNotificationId] = React.useState<String>(); //use to get notifcationId from notification tap event to delte that notificaiton
-
-  const handleAppStateChange = (nextAppState: any) => {
+  // const [notificationId, setNotificationId] = React.useState<String>(); //use to get notifcationId from notification tap event to delte that notificaiton
+  const [notificationId, setNotificationId] = React.useState();
+  // const handleAppStateChange = (nextAppState: any) => {
+  const handleAppStateChange = nextAppState => {
     setAppState(nextAppState);
     console.log('App State in App.tsx::: ', appState);
   };
@@ -89,9 +149,9 @@ const App = () => {
     };
   }, []);
 
-  React.useEffect(() => {
-    queryClient.resumePausedMutations();
-  });
+  // React.useEffect(() => {
+  //   queryClient.resumePausedMutations();
+  // }, []);
 
   return (
     <PersistQueryClientProvider
@@ -101,7 +161,7 @@ const App = () => {
         // console.log('will get called on re-mounting');
         queryClient.resumePausedMutations().then(() => {
           //it will resume
-          console.log('resumed paused mutations');
+          console.log('resumed paused mutations now refetching queries');
           queryClient.invalidateQueries(); //it will revalidate queries
         });
       }}
@@ -144,3 +204,5 @@ notifee.onBackgroundEvent(async ({type, detail}) => {
       });
   }
 });
+
+// export {queryClient};

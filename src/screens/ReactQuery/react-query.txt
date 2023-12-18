@@ -6,3 +6,16 @@ https://www.whitespectre.com/ideas/how-to-build-offline-first-react-native-apps-
 react-query
 reactotron
 storybook
+
+react query rules
+
+//always include variable in query key if it has been passed inside query function
+it helps in caching
+
+there should be one QueryClient in whole application 
+as it contain QueryCache for the lifecycle of application not a new instance on every render
+
+https://tanstack.com/query/latest/docs/react/eslint/stable-query-client
+
+so either desscribe  it as
+const [queryClient] = React.useClient(()=>{new QueryClient()})

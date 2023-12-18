@@ -1,0 +1,8 @@
+adb kill-server
+
+adb reverse tcp:8081 tcp:8081
+
+adb devices
+
+//for reactotron
+adb reverse tcp:9090 tcp:9090ts

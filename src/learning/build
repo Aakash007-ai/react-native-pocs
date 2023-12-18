@@ -1,0 +1,2 @@
+npx react-native build-android --mode=release //it create a build for react native aab files
+npm run android -- --mode="release" //testing in realease mode
