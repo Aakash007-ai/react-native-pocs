@@ -7,20 +7,50 @@ import {foregroundNotification} from './helper/notification.';
 
 import Netinfo, {addEventListener} from '@react-native-community/netinfo';
 import Snackbar from 'react-native-snackbar';
-import {MutationCache, QueryClient, onlineManager} from '@tanstack/react-query';
+import {
+  focusManager,
+  MutationCache,
+  QueryClient,
+  onlineManager,
+  dehydrate,
+} from '@tanstack/react-query';
 import {createAsyncStoragePersister} from '@tanstack/query-async-storage-persister';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {PersistQueryClientProvider} from '@tanstack/react-query-persist-client';
 import {Client} from 'mqtt';
-import axios from 'axios';
+import axios from '../src/screens/ReactQuery/axios-secure';
 
-import {queryClient} from './screens/ReactQuery/queryClient';
+import {queryClient, persister} from './screens/ReactQuery/queryClient';
+import {useOnlineManager} from './screens/ReactQuery/useOnlineManager';
+import {useAppState} from './screens/ReactQuery/useAppStateManager';
+
 // const queryClient = new QueryClient(); //correct way to declare it globally, never declare it inside function orJSX
 
-const persister = createAsyncStoragePersister({
-  storage: AsyncStorage,
-  throttleTime: 1000,
-});
+// const persister = createAsyncStoragePersister({ // check whether they get imported"
+//   storage: AsyncStorage,
+//   throttleTime: 1000, //check why we add this (throttle time is used to save data in async storage after 1 sec)
+// });
+
+// // configure global cache callbacks to show toast notifications
+// mutationCache: new MutationCache({
+//   onSuccess: data => {
+//     toast.success(data.message);
+//   },
+//   onError: error => {
+//     toast.error(error.message);
+//   },
+// });
+
+function onAppStateChange(status) {
+  Netinfo.fetch().then(state => {
+    if (state.isConnected && Platform.OS !== 'web') {
+      focusManager.setFocused(status === 'active');
+    }
+  });
+  // if (Platform.OS !== 'web') {
+  //   focusManager.setFocused(status === 'active');
+  // }
+}
 // if (__DEV__) {
 //   //@ts-ignore
 //   import('./screens/ReactQuery/Reactotron');
@@ -31,60 +61,60 @@ const persister = createAsyncStoragePersister({
 //     console.log('Reactotron Configured'),
 //   );
 // }
-
-queryClient.setMutationDefaults(['add-super-hero'], {
-  mutationFn: newHeroData => {
-    console.log(
-      'newHeroData in mutation function by default of app.jsx',
-      newHeroData,
-    );
-    return axios.post('http://10.206.14.21:3000/superheroes', newHeroData);
-  },
-  onMutate: async newHero => {
-    console.log('onMutate by default in app.jsx', newHero);
-
-    await queryClient.cancelQueries(['super-heroes']); //cancelling is a await
-
-    const previousHeroes = queryClient.getQueryData(['super-heroes']);
-
-    queryClient.setQueryData(['super-heroes'], old => {
-      console.log('old query data in app.jsx:::---', old);
-      return {
-        ...old,
-        data: [...old.data, {...newHero, id: old?.data.length + 1}],
-      };
-    });
-
-    console.log(
-      'newly updated old data in app.jsx',
-      queryClient.getQueryData(['super-heroes']),
-    );
-
-    return {previousHeroes};
-  },
-
-  onError: (error, variables, context) => {
-    // An error happened!
-    console.log(`rolling back optimistic update with id ${context.id}`);
-
-    queryClient.setQueryData(['super-heroes'], context.previousHeroes);
-  },
-  onSuccess: (data, variables, context) => {
-    console.log('by default mutations successfully happen');
-  },
-  onSettled: (data, error, variables, context) => {
-    console.log('onSettled by default in app.jsx', data, error, variables);
-    queryClient.invalidateQueries({queryKey: ['super-heroes']});
-  },
-});
+// queryClient.setMutationDefaults(['add-super-hero'], {
+//   mutationFn: newHeroData => {
+//     console.log(
+//       'newHeroData in mutation function by default of app.jsx',
+//       newHeroData,
+//     );
+//     return axios.post('/superheroes', newHeroData);
+//   },
+//   onMutate: async newHero => {
+//     console.log('onMutate by default in app.jsx', newHero);
+//     await queryClient.cancelQueries(['super-heroes']); //cancelling is a await
+//     const previousHeroes = queryClient.getQueryData(['super-heroes']);
+//     queryClient.setQueryData(['super-heroes'], old => {
+//       console.log('old query data in app.jsx:::---', old);
+//       return {
+//         ...old,
+//         data: [...old.data, {...newHero, id: old?.data.length + 1}],
+//       };
+//     });
+//     console.log(
+//       'newly updated old data in app.jsx',
+//       queryClient.getQueryData(['super-heroes']),
+//     );
+//     return {previousHeroes};
+//   },
+//   onError: (error, variables, context) => {
+//     // An error happened!
+//     console.log(`rolling back optimistic update with id ${context.id}`);
+//     queryClient.setQueryData(['super-heroes'], context.previousHeroes);
+//   }
+//   onSuccess: (data, variables, context) => {
+//     console.log('by default mutations successfully happen');
+//   },
+//   onSettled: (data, error, variables, context) => {
+//     console.log('onSettled by default in app.jsx', data, error, variables);
+//     queryClient.invalidateQueries({queryKey: ['super-heroes']});
+//   },
+// });
 
 const App = () => {
+  //online Manager starts with true (start it when there is internet connection to true)
+  const [isOnline, setIsOnline] = React.useState(false);
+  // useOnlineManager();
+  // useAppState(onAppStateChange);
+
   //---------React Query-----------------------
   React.useEffect(() => {
     //refetch on reconnect , also we can add refetch on appfocussed
     return Netinfo.addEventListener(state => {
       const status = !!state.isConnected;
-      onlineManager.setOnline(status);
+      console.log('if status is undefined or false then add a check here');
+      if (state.isConnected) {
+        onlineManager.setOnline(status); //yes we can
+      }
     });
   }, []);
 
@@ -149,21 +179,39 @@ const App = () => {
     };
   }, []);
 
+  // React.useEffect(() => {}, []);
+
   // React.useEffect(() => {
   //   queryClient.resumePausedMutations();
   // }, []);
 
   return (
     <PersistQueryClientProvider
-      persistOptions={{persister}}
+      persistOptions={{
+        persister: persister,
+        // maxAge: Infinity,
+        // dehydrateOptions: {
+        //   shouldDehydrateMutation: true,
+        //   shouldDehydrateQuery: false,
+        // },
+      }}
       onSuccess={() => {
         //it will call on mounting
         // console.log('will get called on re-mounting');
-        queryClient.resumePausedMutations().then(() => {
-          //it will resume
-          console.log('resumed paused mutations now refetching queries');
-          queryClient.invalidateQueries(); //it will revalidate queries
+        // if (onlineManager.isOnline()) {
+        //   queryClient.resumePausedMutations().then(() => {
+        //     //it will resume
+        //     console.log('resumed paused mutations now refetching queries');
+
+        Netinfo.fetch().then(state => {
+          if (state.isConnected) {
+            queryClient.resumePausedMutations();
+          }
         });
+
+        //     queryClient.invalidateQueries(); //it will revalidate queries
+        //   });
+        // }
       }}
       client={queryClient}>
       <NavigationContainer>
