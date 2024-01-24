@@ -5,7 +5,7 @@ import notifee, {EventType, Notification} from '@notifee/react-native';
 import {AppState, SafeAreaView, StatusBar} from 'react-native';
 import {foregroundNotification} from './helper/notification.';
 
-import Netinfo, {addEventListener} from '@react-native-community/netinfo';
+import Netinfo from '@react-native-community/netinfo';
 import Snackbar from 'react-native-snackbar';
 import {
   focusManager,
@@ -24,87 +24,9 @@ import {queryClient, persister} from './screens/ReactQuery/queryClient';
 import {useOnlineManager} from './screens/ReactQuery/useOnlineManager';
 import {useAppState} from './screens/ReactQuery/useAppStateManager';
 
-// const queryClient = new QueryClient(); //correct way to declare it globally, never declare it inside function orJSX
-
-// const persister = createAsyncStoragePersister({ // check whether they get imported"
-//   storage: AsyncStorage,
-//   throttleTime: 1000, //check why we add this (throttle time is used to save data in async storage after 1 sec)
-// });
-
-// // configure global cache callbacks to show toast notifications
-// mutationCache: new MutationCache({
-//   onSuccess: data => {
-//     toast.success(data.message);
-//   },
-//   onError: error => {
-//     toast.error(error.message);
-//   },
-// });
-
-function onAppStateChange(status) {
-  Netinfo.fetch().then(state => {
-    if (state.isConnected && Platform.OS !== 'web') {
-      focusManager.setFocused(status === 'active');
-    }
-  });
-  // if (Platform.OS !== 'web') {
-  //   focusManager.setFocused(status === 'active');
-  // }
-}
-// if (__DEV__) {
-//   //@ts-ignore
-//   import('./screens/ReactQuery/Reactotron');
-// }
-
-// if (__DEV__) {
-//   import('./screens/ReactQuery/ReactotronConfig').then(() =>
-//     console.log('Reactotron Configured'),
-//   );
-// }
-// queryClient.setMutationDefaults(['add-super-hero'], {
-//   mutationFn: newHeroData => {
-//     console.log(
-//       'newHeroData in mutation function by default of app.jsx',
-//       newHeroData,
-//     );
-//     return axios.post('/superheroes', newHeroData);
-//   },
-//   onMutate: async newHero => {
-//     console.log('onMutate by default in app.jsx', newHero);
-//     await queryClient.cancelQueries(['super-heroes']); //cancelling is a await
-//     const previousHeroes = queryClient.getQueryData(['super-heroes']);
-//     queryClient.setQueryData(['super-heroes'], old => {
-//       console.log('old query data in app.jsx:::---', old);
-//       return {
-//         ...old,
-//         data: [...old.data, {...newHero, id: old?.data.length + 1}],
-//       };
-//     });
-//     console.log(
-//       'newly updated old data in app.jsx',
-//       queryClient.getQueryData(['super-heroes']),
-//     );
-//     return {previousHeroes};
-//   },
-//   onError: (error, variables, context) => {
-//     // An error happened!
-//     console.log(`rolling back optimistic update with id ${context.id}`);
-//     queryClient.setQueryData(['super-heroes'], context.previousHeroes);
-//   }
-//   onSuccess: (data, variables, context) => {
-//     console.log('by default mutations successfully happen');
-//   },
-//   onSettled: (data, error, variables, context) => {
-//     console.log('onSettled by default in app.jsx', data, error, variables);
-//     queryClient.invalidateQueries({queryKey: ['super-heroes']});
-//   },
-// });
-
 const App = () => {
   //online Manager starts with true (start it when there is internet connection to true)
   const [isOnline, setIsOnline] = React.useState(false);
-  // useOnlineManager();
-  // useAppState(onAppStateChange);
 
   //---------React Query-----------------------
   React.useEffect(() => {
@@ -136,11 +58,7 @@ const App = () => {
   // });
 
   React.useEffect(() => {
-    const unsubscribe = addEventListener(state => {
-      // console.log('By Event Listner ::: Connection type ::', state.type); //none when offline
-      //wifi for wifi , cellular for mobile network , none for airplane mode
-      // console.log('By Event Listner ::: Is connected? :: ', state.isConnected);
-
+    const unsubscribe = Netinfo.addEventListener(state => {
       if (state?.isConnected) {
         console.log('state.isConnected ::: ', state.isConnected);
         //SHOW SNACKBAR
@@ -151,7 +69,6 @@ const App = () => {
         });
       }
     });
-
     return () => {
       unsubscribe();
     };
@@ -159,9 +76,7 @@ const App = () => {
 
   ///----------handling notification when app state change under App State Notification
   const [appState, setAppState] = React.useState(); //used to get AppState
-  // const [notificationId, setNotificationId] = React.useState<String>(); //use to get notifcationId from notification tap event to delte that notificaiton
   const [notificationId, setNotificationId] = React.useState();
-  // const handleAppStateChange = (nextAppState: any) => {
   const handleAppStateChange = nextAppState => {
     setAppState(nextAppState);
     console.log('App State in App.tsx::: ', appState);
@@ -179,12 +94,6 @@ const App = () => {
     };
   }, []);
 
-  // React.useEffect(() => {}, []);
-
-  // React.useEffect(() => {
-  //   queryClient.resumePausedMutations();
-  // }, []);
-
   return (
     <PersistQueryClientProvider
       persistOptions={{
@@ -196,22 +105,13 @@ const App = () => {
         // },
       }}
       onSuccess={() => {
-        //it will call on mounting
-        // console.log('will get called on re-mounting');
-        // if (onlineManager.isOnline()) {
-        //   queryClient.resumePausedMutations().then(() => {
-        //     //it will resume
-        //     console.log('resumed paused mutations now refetching queries');
-
         Netinfo.fetch().then(state => {
           if (state.isConnected) {
-            queryClient.resumePausedMutations();
+            queryClient.resumePausedMutations().then(() => {
+              console.log('resumed paused mutations');
+            });
           }
         });
-
-        //     queryClient.invalidateQueries(); //it will revalidate queries
-        //   });
-        // }
       }}
       client={queryClient}>
       <NavigationContainer>
@@ -252,5 +152,3 @@ notifee.onBackgroundEvent(async ({type, detail}) => {
       });
   }
 });
-
-// export {queryClient};

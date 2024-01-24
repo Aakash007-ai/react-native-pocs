@@ -16,20 +16,6 @@ onlineManager.setEventListener(setOnline => {
   );
 });
 
-// configure global cache callbacks to show toast notifications
-// mutationCache: new MutationCache({
-//   onSuccess: data => {
-//     console.log(
-//       'mutation cache successfully implememnted show toast message here',
-//     );
-//     // toast.success(data.message);
-//   },
-//   onError: error => {
-//     console.log('mutation cache error');
-//     // toast.error(error.message);
-//   },
-// });
-
 const queryClient = new QueryClient({
   defaultOptions: {
     mutations: {
@@ -106,10 +92,6 @@ const onAppStateChange = state => {
   });
   // focusManager.setFocused(state === 'active');
 };
-
-// queryClient.setMutationDefaults([MutationKeys.CreateCategory], { //try setting setMutationDafauts
-//   mutationFn: variables => graphqlClient.request(CreateCategoryMutation, variables),
-// })
 
 export {queryClient, persister, onAppStateChange};
 
