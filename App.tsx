@@ -3,8 +3,13 @@ import {NavigationContainer} from '@react-navigation/native';
 import {RootNavigator} from './src/navigation/RootNavigator';
 import notifee, {EventType, Notification} from '@notifee/react-native';
 import {AppState} from 'react-native';
+import codePush from 'react-native-code-push';
 // const Stack = createNativeStackNavigator<RootStackParamsList>();
+
+let codePushOptions = { checkFrequency : codePush.CheckFrequency.ON_APP_RESUME}
 notifee.onBackgroundEvent(async ({type, detail}) => {
+
+  // codePush.sync({ updateDialog:})
   const {notification, pressAction} = detail;
   if (type === EventType.ACTION_PRESS && detail.pressAction?.id === 'start') {
     console.log('use press start in background mode then we have to open app');
@@ -81,4 +86,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default codePush(App);

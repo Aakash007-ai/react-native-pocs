@@ -3,3 +3,12 @@ npm install appcenter appcenter-analytics appcenter-crashes --save-exact
 
 //app secret have to store in safe place like azure key vault
 "fbba30a0-18e5-41c6-b451-851e16ddd20a"
+
+//install app-center cli
+npm install -g appcenter-cli
+
+add code push sdk to app
+npm install --save react-native-code-push
+https://learn.microsoft.com/en-us/appcenter/distribution/codepush/rn-get-started
+
+https://www.npmjs.com/package/react-native-code-push
