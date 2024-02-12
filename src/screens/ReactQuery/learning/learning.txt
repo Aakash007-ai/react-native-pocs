@@ -1,0 +1,43 @@
+React Query tutorial 1
+
+React Query?
+a library for fetching data in react application
+
+why?
+since react is a ui library , there is no specific pattern for data fetching
+useEffect hook for data fetching and useState hook to maintain component state like loading, error or resulting data
+if data is needed throughout the app , we tend to use state management library
+most of state management libraries are good for working with client state 
+e.g theme for aplication/whether a modal is open
+state management libraries are not grat for working with asynchronous or server state 
+
+
+Client vs server state
+Client state
+persistent inyour app memory and accessing or updating it is synchronous
+
+Server state
+persisted remotely and require asynchronous Apis for fetching or updating
+
+has shared ownership 
+data can be updated by someone else without your knowledge
+ui data may not be in sync with remote data
+challenging when you have to deal with caching, dedupnig multiple request for the same data, updating stale data in the background, performance optimization etc
+
+it require time do it all or use library can handle all these we can use this
+
+Course Content 
+Basic querues
+poll data 
+reactqueries dev tools
+Create reusable query hooks
+query by id
+parallel queries
+dynamic queries
+Dependent queries
+infinite &paginated queries 
+
+update data using mutation 
+invalidate queries
+optimistic updates
+axios interceptor

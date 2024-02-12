@@ -1,0 +1,296 @@
+{
+  "superheroes": [
+    {
+      "id": 1,
+      "name": "Batman",
+      "alterEgo": "Bruce Wayne"
+    },
+    {
+      "id": 2,
+      "name": "Superman",
+      "alterEgo": "Clark Kent"
+    },
+    {
+      "id": 3,
+      "name": "Wonder Woman",
+      "alterEgo": "Princess Diana"
+    },
+    {
+      "name": "The Flash",
+      "alterEgo": "Barry Allen",
+      "id": 4
+    },
+    {
+      "name": "Shazam",
+      "alterEgo": "Billy Batson",
+      "id": 5
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 6
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 7
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 8
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 9
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 10
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 11
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 12
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 13
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 14
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 15
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 16
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 17
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 18
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 19
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 20
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 21
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 22
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 23
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 24
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 25
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 26
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 27
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 28
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 29
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 30
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 31
+    },
+    {
+      "alterEgo": "Check ",
+      "name": "Offline ",
+      "id": 32
+    },
+    {
+      "alterEgo": "Check 2",
+      "name": "Offline ",
+      "id": 33
+    },
+    {
+      "alterEgo": "Hfghg",
+      "name": "Adhgg",
+      "id": 34
+    },
+    {
+      "alterEgo": "Fsjstjrajra",
+      "name": "Hrjranrah",
+      "id": 35
+    },
+    {
+      "alterEgo": "Qeerty",
+      "name": "Abcdwf",
+      "id": 36
+    },
+    {
+      "alterEgo": "Qeerty12345",
+      "name": "Abcdwf",
+      "id": 37
+    },
+    {
+      "alterEgo": "V4rv4b ",
+      "name": "H5b6j6",
+      "id": 38
+    },
+    {
+      "alterEgo": "Received ",
+      "name": "Checkpoint ",
+      "id": 39
+    },
+    {
+      "alterEgo": "Dbdhrg3",
+      "name": "Finfowbf",
+      "id": 40
+    },
+    {
+      "alterEgo": "World",
+      "name": "Hello",
+      "id": 41
+    },
+    {
+      "alterEgo": "World",
+      "name": "Hello",
+      "id": 42
+    },
+    {
+      "alterEgo": "Ntjtaj5",
+      "name": "Atarj",
+      "id": 43
+    },
+    {
+      "alterEgo": "Ntjtaj5fg",
+      "name": "Atarj",
+      "id": 44
+    }
+  ],
+  "friends": [
+    {
+      "id": 1,
+      "name": "Chandler Bing"
+    },
+    {
+      "id": 2,
+      "name": "Joey Tribbani"
+    },
+    {
+      "id": 3,
+      "name": "Gachel Green"
+    }
+  ],
+  "users": [
+    {
+      "id": "vishwas@example.com",
+      "channelId": "codeevolution"
+    }
+  ],
+  "channells": [
+    {
+      "id": "codeevolution",
+      "courses": [
+        "react",
+        "vue",
+        "angular"
+      ]
+    }
+  ],
+  "colors": [
+    {
+      "id": 1,
+      "name": "red"
+    },
+    {
+      "id": 2,
+      "name": "green"
+    },
+    {
+      "id": 3,
+      "name": "blue"
+    },
+    {
+      "id": 4,
+      "name": "yellow"
+    },
+    {
+      "id": 5,
+      "name": "orange"
+    },
+    {
+      "id": 6,
+      "name": "pink"
+    },
+    {
+      "id": 7,
+      "name": "purple"
+    },
+    {
+      "id": 8,
+      "name": "brown"
+    },
+    {
+      "id": 9,
+      "name": "black"
+    },
+    {
+      "id": 10,
+      "name": "white"
+    }
+  ]
+}

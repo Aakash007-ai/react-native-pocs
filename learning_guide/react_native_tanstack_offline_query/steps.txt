@@ -1,0 +1,31 @@
+sarojini nagar market 
+159 no.
+metro 1 no. gate market entry
+
+npx react-native@latest init react-native-offline-tanstack-query //require node version 18 at least 
+nvm install 18 //it install node version 18.19.0
+nvm use 18.19.0 //to use node version 18.19.0
+//current version 16.14.2
+npx react-native@latest init react_native_offline_tanstack_query
+
+
+✔ Downloading template
+✔ Copying template
+✔ Processing template
+✔ Installing dependencies
+✔ Initializing Git repository
+
+Run instructions for Android:
+    • Have an Android emulator running (quickest way to get started), or a device connected.
+    • cd "C:\Users\Admin\Desktop\offline_application\react_native_offline_tanstack_query" && npx react-native run-android
+
+Run instructions for Windows:
+    • See https://aka.ms/ReactNativeGuideWindows for the latest up-to-date instructions.
+
+**************------------------------------
+find startups that are going to shut down buy them at 0 % in favuour you will give them profit later
+
+
+
+npx react-native doctor
+npx react-native run-android --verbose

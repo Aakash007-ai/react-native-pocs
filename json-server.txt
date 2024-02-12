@@ -1,0 +1,25 @@
+json-server --host 0.0.0.0 db.json 
+
+send post request just send data// backend will received as postitional parameteres
+
+
+
+NOTE: installation is not 100% automated.
+
+To quickly run Storybook, replace contents of your app entry with:
+
+   export {default} from './.storybook'; 
+
+ Then to run your Storybook, type:
+
+   npm run start 
+
+ For more in information, see the github readme:
+
+
+
+
+ reactotron setup
+ open reactotron 
+ adb reverse tcp:9090 tcp:9090
+now run application

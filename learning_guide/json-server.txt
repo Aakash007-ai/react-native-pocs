@@ -1,0 +1,161 @@
+what and why ?
+Json server is npm package that lets you create fake REST APIs with zero coding
+
+As a frontend deceloper, I constantly need mock data that i can use to quickly prototype from end components
+
+
+Data should be fetched asynchronously and the APIs should not just GET but also POST ,PUT and DELETE requess
+Creating a node+express+mongodb backend is pretty time consuming
+
+Course Structure
+Queryinbg a list of items
+Querying by id
+Filtering
+Sorting
+Pagination
+Querying with operations
+QUERYING by full text search
+Querying parent or child entities
+Making POST,PUT or DELETE requests
+Configuration 
+
+
+Prerequisti
+JSON format
+How APIs are consumed ina frontend app
+
+json-server --host 0.0.0.0  db.json //it by default create a db.json
+
+//for fully backend
+npm init
+npm i json-server
+
+//add script
+"serve-json": "json-server --watch db.json"
+
+//chech localhost:3000
+http://localhost.3000/todo
+
+http://localhost.3000/todo/3 //3 is id no. to get
+
+http://localhost:3000/todo?completed=true //filtering search
+//we want to search for todos whose completed field is true
+
+
+http://localhost:3000/todo?completed=true&discount.type=shipping //discount is another field which is like 
+discount :{ type : shipping }
+
+
+sorting
+http://localhost:3000/products?_sort=price //sort ascending order of their price
+
+http://localhost:3000/products?_sort=price&_order=desc //sort descending order
+
+http://localhost:3000/products?_sort=price,category&_oder=desc,asc //sort price in descending and then  categoryascending 
+
+Pagination
+http://localhost:3000/products?_page=1&_limit=2 //only 2 product at a time, and page no. 1
+
+//also it gives pre and next links of pages
+
+Range 
+http://localhost:3000/products?price_gte=2000&price_lte=6000
+
+http://localhost:3000/products?id_ne=1
+
+
+http://localhost:3000/products?category_like=^f //whose category starts with letter f
+
+
+Full text search
+
+http://localhost:3000/products?q=in //also use like operator
+
+
+Relationship 
+
+http://localhost:3000/products?_embed=reviews
+
+{
+products:[
+	{	
+	id:1,
+	title:"Product 1",
+	category:"electronics"
+	price:4000,
+	description:"this is description about product 1"
+	}
+],
+reviews : [
+	{
+	id:1,
+	rating:3,
+	comment:"Review 1 for product id 1",
+	productId:1
+	}
+]
+}
+
+http://localhost:3000/products?_embed=reviews //give all products with their reviews
+
+http://localhost:3000/review?_expand=product //it expand the product of product id with its review
+//revierw with corresponding product
+
+
+JSON server request
+url is http://
+
+post request
+under body as json of product
+http://localhost:3000/products
+
+
+PUT,PATCH ,DELETE
+PUT
+http://localhost:3000/products/11
+body as josn whole object
+//have to pass a whole object
+we get back as whole object 
+
+
+PATCH request
+body as json
+PATCH
+http://localhost:3000/products/11
+
+put oonly that which we want to add or updateas json
+
+delete does not need anything new
+
+
+//configuration
+--port 4000
+
+ccustom routes
+routes.json
+{
+"/api/v1/* : "/$1",
+"/products/:category":"/products?category=:category"
+}
+
+--routes routes.json
+
+http://localhost:4000/api/v1/products
+http://localhost:3000/products/electronics //get all electronics products
+
+
+Generate random data
+
+data.js
+
+module.exports = () => {
+const data ={
+	products=[]
+	}
+	
+for(let i =0;i<1000;i++){
+data.products.push({
+	id:i,title:`product${i}`,
+	)}
+return data;
+}

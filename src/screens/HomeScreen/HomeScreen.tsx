@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamsList} from '../../navigation/types';
+import {useNetInfo} from '@react-native-community/netinfo';
+import {SimpleReactQuery} from '../ReactQuery/SimpleReactQuery';
 
 const HomeScreen = ({
   navigation,
@@ -88,6 +90,10 @@ const HomeScreen = ({
       <Text>Hello</Text>
     </View>
   );
+  const {type, isConnected} = useNetInfo();
+  React.useEffect(() => {
+    console.log('isConnected status under HomeScreen ::::: ', isConnected);
+  }, [isConnected]);
   return (
     <>
       {/* <SafeAreaView>
@@ -147,12 +153,7 @@ const HomeScreen = ({
             }}
           />
 
-          <Button
-            title="Skeleton Loading"
-            onPress={() => {
-              navigation.navigate('Onboarding', {screen: 'SkeletonLoading'});
-            }}
-          />
+
           <Button
             title="NotifeeExample"
             onPress={() => {
@@ -180,11 +181,28 @@ const HomeScreen = ({
             }}
           /> */}
           <Button
+            title="Skeleton Loading"
+            onPress={() => {
+              navigation.navigate('Onboarding', {screen: 'SkeletonLoading'});
+            }}
+          />
+          <Button
             title="AppStateNotiification"
             onPress={() => {
               navigation.navigate('Onboarding', {
                 screen: 'AppStateNotification',
               });
+            }}
+          />
+          <View style={{width: '100%'}}>
+            <Text>
+              Network State : {isConnected ? ' Connected ' : 'Not Connected'}
+            </Text>
+          </View>
+          <Button
+            title="Simple React Query"
+            onPress={() => {
+              navigation.navigate('Onboarding', {screen: 'SimpleReactQuery'});
             }}
           />
         </View>

@@ -1,0 +1,207 @@
+//normally every time we switch app we see loading
+but as we use useQuery afirst time it make request and cache data
+and if again switch to same useQuery data 
+it first show the prev data and re-invalidate the api request 
+meanwhile useQuery gives use isLoading and isFetching in object destructure
+isLoading means data is not there 
+isFetching means it is fetching the data
+so we use isLoading for first time when data is not there and is Fetching to display data is being fetching in background
+
+by default query is cahced for 5 minutes
+we can pass a config object to declare more option while querying e.g. query time
+query data is garbage collected
+
+
+Stale time 
+continue :-
+we have seen that useQuery did a lot of things for us 
+initially it fetch things for us first time it shows us fetching as well as loading
+with that we can set at which interval it will call apis again till then it will hold cache data 
+also it again fetch things when we moved to that page
+
+sometime we have apis that don't change so much , we want it to remain consistent no making unecessary calls
+
+at that time we use stale time and set it in config with useQuery
+so by default cache time is 5 minutes and we can set stale time e.g. 30 seconds
+
+it means data will be there for 5 minutes if not refetched inbetween if we want but if we want to override unnecesssary calls we also have to use stale time property
+default stale time is 30 sec 
+
+
+React Query tutorial :- Refetch Details
+
+another config is 
+refetchOnMount : true //by default 
+if there is stale aded and we want to override than we use it refetchOnMount
+
+
+refetchonWindowfocus:true//by default if data is updated on backend side it will refetch again 
+
+
+
+Pooling fetching data at regular interval of time (for time series or stock market)
+
+refetchInterval : false by deffault when window is focus
+refetchIntervalBackground : true //it will allow when window is not focus too
+
+React Query Tutorial 10 on click 
+
+whenever we want to fetch on click 
+we pass 
+enabled :false //in config it will stop fetching data on mounting
+
+for this useQuery return a refetch method
+which will be added on onPress to call apis
+else everything is same e.g. caching , stale etc
+
+Success and Error callback
+
+we define 2 function which will be callback after api call 
+
+e.g. 
+const onSuccess = (data) => {//data is like response 
+    console.log("perform side effect on success")
+}
+
+const onError = () => {
+    console.log("perform side effect on success")
+}
+
+and pass then in config object of useQuery as
+const {isLoading,data,isError,error,isFetching, refeth} = useQuery(
+    'super-heroes', //key 
+    fetchSuperHeroes, //api request callback
+    {
+        onSuccess :onSuccess,
+        onError:onError
+    }
+)
+
+//RQ also inject data to these function //check 11 assignment at end of video
+
+
+React Query Tutorial 12 Data Transformation
+
+const onSuccess = (data) => {//data is like response it is same as data return from useQuery hook (response finally)
+    console.log("perform side effect on success")
+}
+
+const onError = () => {
+    console.log("perform side effect on success")
+}
+
+and pass then in config object of useQuery as
+const {isLoading,data,isError,error,isFetching, refeth} = useQuery(
+    'super-heroes', //key 
+    fetchSuperHeroes, //api request callback or fetcher function 
+    {
+        onSuccess :onSuccess,
+        onError:onError,
+        select : (data) =>{
+            const superHeroesNames = data.data.map(hero => hero.name)
+            return superHeroNames //we can set it to states
+        }
+    }
+)
+
+
+ReactQuery Tutorial 13 : Custom Query hook
+
+we might want to use same queryHook for different Screen 
+we can do this either by replicating same data , but it will lead to repeating of same code 
+So, in this case we will create custom Query
+
+
+so we add a new folder called  hooks
+
+const fetchSuperHeroes = () => {
+    return axios.get('http://localhost:4000/superheroes')
+}
+
+export const useSuperHeroesData = () => {
+    // return useQuery('query-key',fetcher function ,config object)
+    return useQuery('super-heroes',fetchSuperheroes,{
+        onSuccess,
+        onError,
+        select : (data)=>{
+            const superHeroName = data.data.map((hero)=>hero.name)
+            return superHeroNames
+        }
+    })
+}
+
+// in main file we receive  it as 
+const {isLoading,data,isError,error,isFetching,refetch} = useSuperHeroesData(onSuccess,onEerror)
+
+
+ReactQuery Tutorial 14 Query by Id
+
+ReactQuery allow us to get query by id too
+
+so first create a details page
+now configure the route
+
+
+RQ Tutorial 15 Parallel Queries
+//sometime we need to fetch multiple data from different apis  
+
+RQ Tutorial 18 Initial Query Data 
+
+
+so if we have some data initially so instead of showig loading we will show fetching data 
+so React Query  gives us useClientQuery along with queryClient()
+
+so we get data from previously step apis
+e.g. we fetch list of heroes so by default we have some information related to each hero e.g. his name
+so we use this as preload data 
+
+
+check useSuperHeroData for implementation
+
+
+RQ Tutorial 19 Paginated Queries 
+
+
+by default json server supports pagination
+e.g localhost:4000/colors?_limit=2&_page=4
+//show only 2 at onceand page no.
+
+
+React Query Tutorial 21 Mutations
+
+used for post request
+
+import useMutation FROM REACT-Query
+
+pass a post request callalback, and config file 
+
+
+RQ tutorial 23 handling mutation response
+
+instead of calling get request after post we will update old data after request got success
+for that we add setQueryData('key',(olddata)=>{
+    //so it is more convenient to update only particular data field
+    //so we return the same object with updated data
+    retrun {
+        ...oldQueryData,
+        data : [...oldQueryData.data, data.data] //data is the response of mutation we take this in as onSuccess parametere
+    }
+})
+
+
+RQ tutorial 24 Optimistic Updates
+
+//use 3 configuration 
+onMutate //will set query before it make post request, here we update data earlier as 
+const previousData = useQuery.setQueryData("key", (old_data)=>{
+    
+})
+return previousData; 
+onError 
+onSettled //reinvalidate whole queries again to get fresh request
+
+
+
+
+RQ tutorail 25 axios interceptor
+

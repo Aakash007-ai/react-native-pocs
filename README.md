@@ -35,3 +35,11 @@ so, initializing a project and integrating firebase signin with google
 # react-native-reanimated example
 
 ## starting with version
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
