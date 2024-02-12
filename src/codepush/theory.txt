@@ -1,0 +1,102 @@
+CodePush
+over the air updates 
+
+
+https://www.youtube.com/watch?v=ejVPtJF3x7s
+
+
+limitation we can't update 
+node_modules
+inclde asset using react native asset e.g. require('./img.jpg')
+
+follow Google Play Store ota guidelines same for AppleAppStore
+
+Codepush does not vioalte guideline but don't just abuse it
+
+Steps
+go to codepush then codepush
+Add app for ios and android separate
+follow deployment setup follow code integration
+
+install appcenter-cli
+
+get deployment key
+appcenter codepush deployment list -owner/appname -k
+
+it will give you key 
+paste key in strings
+
+
+install react-native-code-push npm
+
+wrap App entry point with codepush
+codePushOption = {
+checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+installMode:codePush.InstallMode.IMMEDIATE
+updateDialog:true
+}
+
+
+checkFrequency  specifies when you want to check update
+by default on_app_start
+
+
+appcenter codepush react-release -a <owner/appname>
+
+
+appcenter codepush react-release -a <owner/appname> -c <updateContentsPath> -t <targetBinaryVersion> -d <deplymentName>
+
+-t --target-binary-version <version>
+-c --updatecontents-path <updateContentPath>
+-r --rollout <rolloutPercentage>
+--disanle-duplicate-release-error
+-k --private-key-path <privateKeyPath>
+-, --mandatory
+-x --disabled
+--description <description>
+-d --deployment-name deploymentName
+-a --app <ownerName>/<appName>
+--disable-telemetry
+
+-v --version
+
+
+use cases -multi deployment
+in build types
+debug{
+resValue "string,"CodePushDevelopmentKey","key_value",
+}
+stagingRelease{
+resValue
+}
+productionRelease { resValue "string",}
+
+appcenter codepush deployment add -a <owner>/<appname> <deploymentname>
+
+
+use cases- dynamic deployment
+
+codepush.sync((deploymentKey:CodePUSH_DEPLOYMENT_KEY))
+codepush.sync(
+options:Object,
+syncStatusChangeCALLBACK:Function(syncStaus:Number),
+downloadProgressCallback : function(progres:Downloadprogrss)
+handleBinarvVersionMismatchCallback: function(update:RemotePackage)
+):promise<Number>
+
+
+dynamic deployment- beta access
+<Switch
+onValueChange=((value:boolean)=> {
+if(value){
+codePush.sync((deploymentKey:CODEPUSH_BETA_DEPLYMENT_KEY))
+}
+else{
+}
+
+
+
+
+dynamic deployment A/B tests
+
+codePush.sync({deploymentKey,userProfile.codePush)

@@ -105,13 +105,13 @@ const HomeScreen = ({
             Welcome to React Native Pocs. To view any functionality tap on
             button
           </Text>
-          <Button
+          {/* <Button
             title="ChartKit"
             onPress={() => {
               navigation.navigate('Onboarding', {screen: 'ChartKit'});
             }}
           />
-          {/* <Button
+          <Button
             title="Gifted Chart"
             onPress={() => {
               navigation.navigate('Onboarding', {screen: 'GiftedChart'});
@@ -145,7 +145,7 @@ const HomeScreen = ({
                 screen: 'NotifeeNotification',
               });
             }}
-          />
+          /> */}
           <Button
             title="CustomNotifiaction"
             onPress={() => {
@@ -153,8 +153,7 @@ const HomeScreen = ({
             }}
           />
 
-
-          <Button
+          {/* <Button
             title="NotifeeExample"
             onPress={() => {
               navigation.navigate('Onboarding', {screen: 'NotifeeExample'});
@@ -171,7 +170,7 @@ const HomeScreen = ({
             onPress={() => {
               navigation.navigate('Onboarding', {screen: 'CustomNotifee'});
             }}
-          />
+          /> */}
           <Button
             title="Background Notification"
             onPress={() => {
@@ -179,7 +178,7 @@ const HomeScreen = ({
                 screen: 'BackgroundNotification',
               });
             }}
-          /> */}
+          />
           <Button
             title="Skeleton Loading"
             onPress={() => {
