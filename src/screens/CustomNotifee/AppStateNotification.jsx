@@ -33,7 +33,7 @@ const AppStateNotification = () => {
       .setNotificationCategories([
         {
           id: 'ios-workout-notification',
-          
+
           actions: [
             {
               id: 'start',
@@ -117,7 +117,7 @@ const AppStateNotification = () => {
 
   const handleAppStateChange = nextAppState => {
     if (appstate.match(/inactive|background/) && nextAppState === 'active') {
-    // if (appstate.match(/inactive|background/) && nextAppState === 'active') {
+      // if (appstate.match(/inactive|background/) && nextAppState === 'active') {
       console.log('App has come to the foreground!', nextAppState);
       setAppState(nextAppState);
       //start a task here to start notiifcation
@@ -150,21 +150,21 @@ const AppStateNotification = () => {
 
   return (
     <View>
-      <Text style={{color: 'black'}}>
+      <Text>
         Task is to generate notification when app is not in active state and
         kill it when app becom active.\n So, first add action to notification
         later and do it now which perform actions
       </Text>
       <Button title="Display Notification" onPress={onDisplayNotification} />
       <Button title="Cancel Notification" onPress={cancelNotifcation} />
-      <Text style={{color: 'black'}}>Current App State : {appstate}</Text>
+      <Text>Current App State : {appstate}</Text>
       <Button
         title="Cancel All Notification"
         onPress={async () => {
           await notifee.cancelAllNotifications();
         }}
       />
-      <Text style={{color: 'black'}}>
+      <Text>
         now handling same kind of notification in ios. Creation of notificaiton
         is ok with action'title todo:----cancel notification on ios,make it
         sticky,add actions

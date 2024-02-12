@@ -12,3 +12,9 @@ npm install --save react-native-code-push
 https://learn.microsoft.com/en-us/appcenter/distribution/codepush/rn-get-started
 
 https://www.npmjs.com/package/react-native-code-push
+
+
+//release a build
+appcenter codepush release-react -a jsonbourne/React-native-pocs -d Production
+
+https://github.com/gulsher7/CodePushApp.git

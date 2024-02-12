@@ -57,6 +57,7 @@ appcenter codepush react-release -a <owner/appname> -c <updateContentsPath> -t <
 -d --deployment-name deploymentName
 -a --app <ownerName>/<appName>
 --disable-telemetry
+
 -v --version
 
 

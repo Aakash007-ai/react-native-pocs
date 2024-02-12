@@ -1,0 +1,10 @@
+//list all devices attached
+adb devices
+
+//kill adb server
+adb kill-server
+
+adb reconnect
+
+//adb reverse proxy to listen at port
+adb reverse tcp:8081 tcp:8081

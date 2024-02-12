@@ -1,3 +1,9 @@
+[1-Feb]
+npm audit fix //update dependecy to latest without non reflecting for old projects
+nvm list //list all node version
+nvm 19.10.0 //use node version specified
+
+
 git init  //to initialize a directory
 {create github repo and copy link}
 git remote add origin link_of_github_repo
@@ -8,3 +14,12 @@ git push --set-upstream origin branch_name
 
 react native camera
 https://react-native-camera.github.io/react-native-camera/docs/installation
+
+[29-Jan]
+
+//deploy code to appcenter codepush
+appcenter codepush release-react -a jsonbourne/React-native-pocs -d Productio
+
+//launch emulator from commandline
+emulator -list-avds   
+emulator -avd Pixel_6_Pro_API_33  
