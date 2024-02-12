@@ -1,118 +1,84 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, {useEffect} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {RootNavigator} from './src/navigation/RootNavigator';
+import notifee, {EventType, Notification} from '@notifee/react-native';
+import {AppState} from 'react-native';
+// const Stack = createNativeStackNavigator<RootStackParamsList>();
+notifee.onBackgroundEvent(async ({type, detail}) => {
+  const {notification, pressAction} = detail;
+  if (type === EventType.ACTION_PRESS && detail.pressAction?.id === 'start') {
+    console.log('use press start in background mode then we have to open app');
+  } else if (
+    type === EventType.ACTION_PRESS &&
+    detail.pressAction?.id === 'later'
+  ) {
+    console.log(
+      'user opt to cancel notification::: ',
+      detail.notification?.id,
+      ' and type is ::',
+      type,
+    );
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+    let id = detail.notification?.id;
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+    // cancelNotification(notification);
+    await notifee
+      .cancelNotification('workout-notification')
+      .then(() => {
+        console.log('notification cancelled from App.tsx file');
+      })
+      .catch(err => {
+        console.log('cancelled notification error from App.tsx', err);
+      });
+  }
 });
+
+const App = () => {
+  const [appState, setAppState] = React.useState(); //used to get AppState
+  const [notificationId, setNotificationId] = React.useState<String>(); //use to get notifcationId from notification tap event to delte that notificaiton
+
+  React.useEffect(() => {
+    // const subscription = AppState.addEventListener(
+    //   'change',
+    //   handleAppStateChange,
+    // );
+
+    notifee.onForegroundEvent(async ({type, detail}) => {
+      const {notification, pressAction} = detail;
+      if (type === EventType.ACTION_PRESS && pressAction?.id === 'start') {
+      } else if (
+        type === EventType.ACTION_PRESS &&
+        pressAction?.id === 'later'
+      ) {
+        setNotificationId(notification?.id);
+        // cancelNotification(notification);
+        await notifee
+          // .cancelNotification(notification?.id ? notification?.id : 'defaultId')
+          .cancelNotification('workout-notification')
+          .then(() => {
+            console.log('notification cancelled from App.tsx file');
+          })
+          .catch(err => {
+            console.log('cancelled notification error from App.tsx', err);
+          });
+      }
+    });
+
+    //   return () => {
+    //     subscription.remove();
+    //   };
+    // }, []);
+  }, []);
+
+  // const handleAppStateChange = (nextAppState: any) => {
+  //   setAppState(nextAppState);
+  //   console.log('App State in App.tsx::: ', appState);
+  // };
+  return (
+    <NavigationContainer>
+      <RootNavigator />
+    </NavigationContainer>
+  );
+};
 
 export default App;

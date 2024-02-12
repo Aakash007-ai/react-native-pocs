@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "760736236125",
+    "project_id": "react-native-pocs",
+    "storage_bucket": "react-native-pocs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760736236125:android:294eedbea70c982f0183b4",
+        "android_client_info": {
+          "package_name": "com.react_native_pocs"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkd5DRlLv5tPDXNEKTCQxucl2rBPKCS6s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -17,5 +17,8 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
+
+        //add the google-services plugin as a dependency inside of your /android/build.gradle file
+        classpath 'com.google.gms:google-services:4.3.15' // added to incclude google-services.json file
     }
 }
