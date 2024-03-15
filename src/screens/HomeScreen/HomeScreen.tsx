@@ -12,6 +12,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamsList} from '../../navigation/types';
 import {useNetInfo} from '@react-native-community/netinfo';
 import {SimpleReactQuery} from '../ReactQuery/SimpleReactQuery';
+import AdvanceGiftedChart from '../Advance_Gifted_Chart/AdvanceGiftedChart';
 
 const HomeScreen = ({
   navigation,
@@ -100,12 +101,15 @@ const HomeScreen = ({
         <FlatList data={Screens} renderItem={({item}) => Item(item)} />
       </SafeAreaView> */}
       <ScrollView style={{margin: 5}}>
-        <View style={{alignItems: 'center', padding: 8}}>
+        <View style={{alignItems: 'center', padding: 8,paddingVertical:10,justifyContent:'space-between'}}>
           <Text>
             Welcome to React Native Pocs. To view any functionality tap on
             button
           </Text>
-          {/* <Button
+          <Button title='Scrollable Graph' onPress={()=>{
+            navigation.navigate('Onboarding',{screen:'AdvanceGiftedChart'})
+          }}/>
+          <Button
             title="ChartKit"
             onPress={() => {
               navigation.navigate('Onboarding', {screen: 'ChartKit'});
@@ -145,7 +149,7 @@ const HomeScreen = ({
                 screen: 'NotifeeNotification',
               });
             }}
-          /> */}
+          /> 
           <Button
             title="CustomNotifiaction"
             onPress={() => {
@@ -153,7 +157,7 @@ const HomeScreen = ({
             }}
           />
 
-          {/* <Button
+          <Button
             title="NotifeeExample"
             onPress={() => {
               navigation.navigate('Onboarding', {screen: 'NotifeeExample'});
@@ -170,7 +174,7 @@ const HomeScreen = ({
             onPress={() => {
               navigation.navigate('Onboarding', {screen: 'CustomNotifee'});
             }}
-          /> */}
+          />
           <Button
             title="Background Notification"
             onPress={() => {

@@ -22,6 +22,7 @@ import BackgroundNotification from '../screens/LocalNotifciation/BackgroundHeadl
 import AppStateNotification from '../screens/CustomNotifee/AppStateNotification';
 import {SafeAreaView} from 'react-native';
 import {SimpleReactQuery} from '../screens/ReactQuery/SimpleReactQuery';
+import AdvanceGiftedChart from '../screens/Advance_Gifted_Chart/AdvanceGiftedChart';
 
 const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>();
 const OnboardingNavigator = () => {
@@ -106,6 +107,10 @@ const OnboardingNavigator = () => {
         name="SimpleReactQuery"
         component={SimpleReactQuery}
       />
+      <OnboardingStack.Screen
+        name="AdvanceGiftedChart"
+        component={AdvanceGiftedChart}
+        />
     </OnboardingStack.Navigator>
   );
 };

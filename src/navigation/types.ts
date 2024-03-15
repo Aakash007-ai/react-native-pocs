@@ -28,6 +28,7 @@ export type OnboardingStackParamList = {
   AppStateNotification: undefined;
   QueueRestApi: undefined;
   SimpleReactQuery: undefined;
+  AdvanceGiftedChart: undefined;
 };
 
 // import {NativeStackScreenProps} from '@react-navigation/native-stack';
